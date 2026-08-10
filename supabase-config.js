@@ -1,12 +1,12 @@
 window.PORTFOLIO_SUPABASE = {
-  url: "",
-  anonKey: ""
+  url: "https://prtvwphsckjqsjfuomif.supabase.co",
+  anonKey: "sb_publishable_664k33LX7qvncxULgc5apw_0KhYVXoz"
 };
 
 window.PORTFOLIO_SITE = {
-  contactEmail: "",
+  contactEmail: "Danojosephclyde@gmail.com",
   resumeUrl: "resume.html",
-  githubUrl: "",
+  githubUrl: "https://github.com/josephcloyd",
   linkedinUrl: "",
   analyticsId: ""
 };

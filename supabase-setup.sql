@@ -11,6 +11,11 @@ create table if not exists public.portfolio_items (
   tags text[] default '{}',
   url text default '',
   image_url text default '',
+  gallery_urls text[] default '{}',
+  role text default '',
+  stack_summary text default '',
+  learnings text default '',
+  next_steps text default '',
   challenge text default '',
   solution text default '',
   outcome text default '',
@@ -23,6 +28,11 @@ create table if not exists public.portfolio_items (
 );
 
 alter table public.portfolio_items add column if not exists image_url text default '';
+alter table public.portfolio_items add column if not exists gallery_urls text[] default '{}';
+alter table public.portfolio_items add column if not exists role text default '';
+alter table public.portfolio_items add column if not exists stack_summary text default '';
+alter table public.portfolio_items add column if not exists learnings text default '';
+alter table public.portfolio_items add column if not exists next_steps text default '';
 alter table public.portfolio_items add column if not exists challenge text default '';
 alter table public.portfolio_items add column if not exists solution text default '';
 alter table public.portfolio_items add column if not exists outcome text default '';

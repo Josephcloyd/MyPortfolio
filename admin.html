@@ -54,13 +54,19 @@
               <div><p class="field-label">Project or certificate image</p><p>JPG, PNG, WEBP, or GIF up to 5 MB.</p></div>
               <input id="mediaFile" type="file" accept="image/jpeg,image/png,image/webp,image/gif" />
               <button class="btn btn-outline" id="uploadButton" type="button">Upload Image</button>
+              <button class="btn btn-outline" id="appendGalleryButton" type="button">Add To Gallery</button>
               <label>Image URL<input id="itemImageUrl" type="url" placeholder="Uploaded image URL" /></label>
+              <label>Gallery image URLs<textarea id="itemGalleryUrls" rows="4" placeholder="One image URL per line. Use this for screenshots, diagrams, certificates, or build previews."></textarea><small>Upload an image, then use Add To Gallery or paste URLs here later.</small></label>
             </div>
             <fieldset class="case-fields" id="caseFields">
               <legend>Case study detail</legend>
+              <label>My role<input id="itemRole" type="text" placeholder="Example: Full-stack developer, AI workflow builder" /></label>
+              <label>Stack summary<input id="itemStackSummary" type="text" placeholder="Example: React, Supabase, Edge Functions, PostgreSQL" /></label>
               <label>Challenge<textarea id="itemChallenge" rows="3"></textarea></label>
               <label>Approach<textarea id="itemSolution" rows="3"></textarea></label>
               <label>Outcome<textarea id="itemOutcome" rows="3"></textarea></label>
+              <label>What I learned<textarea id="itemLearnings" rows="3"></textarea></label>
+              <label>Future improvements<textarea id="itemNextSteps" rows="3"></textarea></label>
             </fieldset>
             <label>Publish at<input id="itemPublishAt" type="datetime-local" /><small>Leave blank to publish immediately when Published is enabled.</small></label>
             <div class="form-row toggle-row"><label class="check-label"><input id="itemFeatured" type="checkbox" />Featured</label><label class="check-label"><input id="itemPublished" type="checkbox" checked />Published</label></div>
