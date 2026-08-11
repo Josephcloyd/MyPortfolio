@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+mcp-server/node_modules/
+
+# Local Environment Variables
+.env
+.env.local
+mcp-server/.env
+
+# Build Output
+dist/
+
+# System files
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log

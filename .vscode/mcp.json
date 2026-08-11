@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "jc-portfolio": {
+      "command": "node",
+      "args": [
+        "c:/Users/Joseph Clyde/OneDrive/Desktop/Cloy's/Cloy's Project/Portfolio/mcp-server/index.js"
+      ]
+    }
+  }
+}

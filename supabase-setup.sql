@@ -87,7 +87,7 @@ with check (public.is_portfolio_admin_mfa() and owner_id = auth.uid());
 drop policy if exists "Users can update own portfolio items" on public.portfolio_items;
 drop policy if exists "Portfolio admins can update portfolio items" on public.portfolio_items;
 create policy "Portfolio admins can update portfolio items" on public.portfolio_items for update to authenticated
-using (public.is_portfolio_admin_mfa()) with check (public.is_portfolio_admin_mfa() and owner_id = auth.uid());
+using (public.is_portfolio_admin_mfa()) with check (public.is_portfolio_admin_mfa());
 drop policy if exists "Users can delete own portfolio items" on public.portfolio_items;
 drop policy if exists "Portfolio admins can delete portfolio items" on public.portfolio_items;
 create policy "Portfolio admins can delete portfolio items" on public.portfolio_items for delete to authenticated

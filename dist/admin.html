@@ -52,7 +52,7 @@
 
       <main class="admin-main container" id="adminMain">
         <section class="admin-grid">
-          <form class="admin-form depth-card" id="itemForm">
+          <form class="admin-form depth-card" id="itemForm" novalidate>
             <div class="form-heading" id="editor"><p class="eyebrow">01 / Record Editor</p><h2 id="formTitle">Add Portfolio Item</h2></div>
             <input type="hidden" id="itemId" />
             <div class="form-row compact-row">
@@ -84,7 +84,8 @@
             </fieldset>
             <label>Publish at<input id="itemPublishAt" type="datetime-local" /><small>Leave blank to publish immediately when Published is enabled.</small></label>
             <div class="form-row toggle-row"><label class="check-label"><input id="itemFeatured" type="checkbox" />Featured</label><label class="check-label"><input id="itemPublished" type="checkbox" checked />Published</label></div>
-            <div class="admin-actions"><button class="btn btn-primary" type="submit">Save Item</button><button class="btn btn-outline" type="button" id="resetFormButton">Clear</button></div>
+            <div class="admin-actions"><button class="btn btn-primary" type="submit" id="saveItemButton">Save Item</button><button class="btn btn-outline" type="button" id="resetFormButton">Clear</button></div>
+            <p class="form-status" id="formSaveStatus" role="status" aria-live="polite"></p>
           </form>
 
           <div class="admin-side-stack">
@@ -109,6 +110,7 @@
         </section>
       </main>
     </div>
+    <div class="admin-toast" id="adminToast" role="status" aria-live="polite" aria-atomic="true" hidden><span class="toast-indicator" aria-hidden="true"></span><p id="adminToastMessage"></p></div>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.2"></script><script src="supabase-config.js"></script><script src="security.js"></script><script src="portfolio-data.js"></script><script src="admin.js"></script><script src="site.js"></script>
   </body>
 </html>

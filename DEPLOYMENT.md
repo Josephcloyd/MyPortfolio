@@ -106,3 +106,12 @@ Enable the `pg_cron` extension first if your project does not already provide it
 2. Create, edit, and delete one test portfolio item. Confirm the **Integrity Log** records each change.
 3. Send one message through the public contact form. Confirm that it appears in the admin inbox and that the email alert arrives.
 4. Check `/privacy.html`, `/security.html`, and `/.well-known/security.txt` on the deployed domain.
+
+## 8. Model Context Protocol (MCP) Server setup
+
+The repository includes a dedicated MCP server in `mcp-server/` allowing AI clients (Gemini, Claude, Cursor, Windsurf) to inspect portfolio projects, skills, and resume entries.
+
+1. Navigate to `mcp-server/` and run `npm install`.
+2. Configure your AI client using the config snippets provided in `mcp-server/README.md`.
+3. (Optional) Provide `PORTFOLIO_SUPABASE_URL` and `PORTFOLIO_SUPABASE_ANON_KEY` in `mcp-server/.env` to sync live database records with AI assistants.
+

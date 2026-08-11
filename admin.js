@@ -6,9 +6,13 @@
   const auditList = document.querySelector("#auditList");
   const storageMode = document.querySelector("#storageMode");
   const authStatus = document.querySelector("#authStatus");
+  const formSaveStatus = document.querySelector("#formSaveStatus");
+  const toast = document.querySelector("#adminToast");
+  const toastMessage = document.querySelector("#adminToastMessage");
   const signOutButton = document.querySelector("#signOutButton");
   const seedButton = document.querySelector("#seedButton");
   const resetButton = document.querySelector("#resetFormButton");
+  const saveButton = document.querySelector("#saveItemButton");
   const formTitle = document.querySelector("#formTitle");
   const gate = document.querySelector("#authGate");
   const shell = document.querySelector("#adminShell");
@@ -27,18 +31,16 @@
   let audits = [];
   let draggedId = null;
   let activeFactorId = null;
+  let toastTimer = null;
   if (!store || !form || !list) return;
 
-  const canContinue = await initAuth();
+  form.addEventListener("submit", handleSave);
+  form.addEventListener("invalid", () => notify("Please complete the highlighted required field before saving.", true), true);
   wireEditor();
+  const canContinue = await initAuth();
   updatePreview();
   if (canContinue) await refresh();
 
-  form.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    try { await store.saveItem(formToItem()); notify(store.hasSupabaseConfig() ? "Saved to the protected cloud workspace." : "Saved in local preview mode."); clearForm(); await refresh(); }
-    catch (error) { notify(error.message || "Could not save this item.", true); }
-  });
   resetButton.addEventListener("click", clearForm);
   seedButton.addEventListener("click", async () => { try { await store.seedStarterItems(); notify("Starter content imported."); await refresh(); } catch (error) { notify(error.message, true); } });
   search.addEventListener("input", renderFilteredList);
@@ -143,6 +145,23 @@
     if (userData.user && await establishSecureSession(userData.user)) { mfaEnrollForm.reset(); mfaVerifyForm.reset(); await refresh(); }
   }
 
+  async function handleSave(event) {
+    event.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); notify("Please complete the highlighted required field before saving.", true); return; }
+    if (saveButton) { saveButton.disabled = true; saveButton.textContent = "Saving..."; }
+    try {
+      notify("Saving your project record...");
+      await store.saveItem(formToItem());
+      notify(store.hasSupabaseConfig() ? "Saved successfully to the protected cloud workspace." : "Saved successfully in local preview mode.");
+      clearForm();
+      await refresh();
+    } catch (error) {
+      notify(error.message || "Could not save this item.", true);
+    } finally {
+      if (saveButton) { saveButton.disabled = false; saveButton.textContent = "Save Item"; }
+    }
+  }
+
   function lockAdmin(message = "Sign in with your allowlisted administrator account.") { shell.hidden = true; gate.hidden = false; gateForm.hidden = false; mfaEnrollPanel.hidden = true; mfaVerifyPanel.hidden = true; gateStatus.textContent = message; document.body.classList.remove("auth-pending"); document.body.classList.add("is-auth-locked"); }
   function unlockAdmin(user) { shell.hidden = false; gate.hidden = true; document.body.classList.remove("auth-pending", "is-auth-locked"); signOutButton.hidden = false; authStatus.textContent = `Verified administrator: ${user.email}. MFA, RLS, media controls, and audit logging are active.`; }
 
@@ -158,7 +177,19 @@
   function clearForm() { form.reset(); setValue("#itemId", ""); setValue("#itemSort", "0"); setValue("#itemGalleryUrls", ""); setChecked("#itemPublished", true); formTitle.textContent = "Add Portfolio Item"; toggleCaseFields(); updatePreview(); }
   function toggleCaseFields() { document.querySelector("#caseFields").hidden = value("#itemType") !== "project"; }
   function updatePreview() { const root = document.querySelector("#editorPreview"); const title = value("#itemTitle") || "Untitled record"; const category = value("#itemCategory") || value("#itemType") || "Record"; const description = value("#itemDescription") || "Your description will appear here."; const imageUrl = window.PortfolioSecurity?.imageUrl(value("#itemImageUrl")) || ""; const galleryCount = lines("#itemGalleryUrls").length; root.innerHTML = `${imageUrl ? `<img src="${escapeAttr(imageUrl)}" alt="" />` : `<div class="preview-signal"><i></i><i></i><i></i></div>`}<div class="card-readout"><span>${escapeHtml(category)}</span><small>${galleryCount ? `${galleryCount} MEDIA` : "PREVIEW"}</small></div><h3>${escapeHtml(title)}</h3><p>${escapeHtml(description)}</p>`; }
-  function notify(message, isError) { authStatus.textContent = message || "Something went wrong."; authStatus.classList.toggle("is-error", Boolean(isError)); }
+  function notify(message, isError) { const text = message || "Something went wrong."; authStatus.textContent = text; authStatus.classList.toggle("is-error", Boolean(isError)); if (formSaveStatus) { formSaveStatus.textContent = text; formSaveStatus.classList.toggle("is-error", Boolean(isError)); } showToast(text, Boolean(isError)); }
+  function showToast(message, isError) {
+    if (!toast || !toastMessage) return;
+    clearTimeout(toastTimer);
+    toastMessage.textContent = message;
+    toast.hidden = false;
+    toast.classList.toggle("is-error", isError);
+    requestAnimationFrame(() => toast.classList.add("is-visible"));
+    toastTimer = setTimeout(() => {
+      toast.classList.remove("is-visible");
+      setTimeout(() => { if (!toast.classList.contains("is-visible")) toast.hidden = true; }, 180);
+    }, isError ? 6000 : 3200);
+  }
   function statusLabel(entry) { if (!entry.published) return "Draft"; if (entry.publish_at && new Date(entry.publish_at) > new Date()) return "Scheduled"; return "Published"; }
   function statusClass(entry) { return statusLabel(entry) === "Published" ? "is-live" : statusLabel(entry) === "Scheduled" ? "is-scheduled" : "is-draft"; }
   function formatDate(value) { return new Intl.DateTimeFormat(undefined, { dateStyle: "medium", timeStyle: "short" }).format(new Date(value)); }
