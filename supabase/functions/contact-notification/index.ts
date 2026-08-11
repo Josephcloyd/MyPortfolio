@@ -12,13 +12,14 @@ Deno.serve(async (request) => {
 
   const apiKey = Deno.env.get("RESEND_API_KEY");
   const to = Deno.env.get("CONTACT_TO_EMAIL");
-  if (!apiKey || !to) return new Response("Missing email configuration", { status: 500 });
+  const from = Deno.env.get("RESEND_FROM_EMAIL");
+  if (!apiKey || !to || !from) return new Response("Missing email configuration", { status: 500 });
 
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
     body: JSON.stringify({
-      from: "Portfolio <onboarding@resend.dev>",
+      from,
       to: [to],
       reply_to: message.email,
       subject: `Portfolio inquiry: ${message.subject || "New message"}`,

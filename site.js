@@ -13,7 +13,8 @@
   document.querySelectorAll("[data-year]").forEach((node) => { node.textContent = new Date().getFullYear(); });
   const config = window.PORTFOLIO_SITE || {};
   [["github", config.githubUrl], ["linkedin", config.linkedinUrl]].forEach(([name, url]) => {
-    document.querySelectorAll(`[data-social="${name}"]`).forEach((link) => { if (url) { link.href = url; link.hidden = false; link.target = "_blank"; link.rel = "noreferrer"; } });
+    const safeUrl = window.PortfolioSecurity?.externalUrl(url) || "";
+    document.querySelectorAll(`[data-social="${name}"]`).forEach((link) => { if (safeUrl) { link.href = safeUrl; link.hidden = false; link.target = "_blank"; link.rel = "noreferrer"; } });
   });
 
   const navLinks = [...document.querySelectorAll('.nav-links a[href^="#"]')];

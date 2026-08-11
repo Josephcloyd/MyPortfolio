@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#080908" />
+    <meta name="robots" content="noindex, nofollow, noarchive" />
+    <meta name="referrer" content="no-referrer" />
+    <title>Portfolio Admin | Joseph Clyde Daño</title>
+    <meta name="description" content="Protected content operations for the portfolio of Joseph Clyde Daño." />
+    <link rel="icon" href="og.png" type="image/png" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="admin-body auth-pending">
+    <a class="skip-link" href="#adminMain">Skip to admin content</a>
+    <section class="auth-gate" id="authGate" hidden>
+      <form class="auth-gate-panel" id="gateLoginForm">
+        <a class="brand" href="index.html"><span class="brand-mark">JC</span><span class="brand-copy"><strong>PORTFOLIO ADMIN</strong><small>AUTHORIZED ACCESS</small></span></a>
+        <div><p class="eyebrow">Secure Channel</p><h1>Sign in.</h1><p>Use the admin account created in Supabase Authentication.</p></div>
+        <label>Email<input id="gateEmail" type="email" autocomplete="email" required /></label>
+        <label>Password<input id="gatePassword" type="password" autocomplete="current-password" required /></label>
+        <button class="btn btn-primary" type="submit">Open Control Room</button>
+        <p class="form-status" id="gateStatus" role="status"></p>
+        <a class="text-link" href="index.html">Return to portfolio</a>
+      </form>
+      <section class="auth-gate-panel" id="mfaEnrollPanel" hidden>
+        <div><p class="eyebrow">Step 2 / Multi-factor access</p><h1>Protect admin access.</h1><p>Scan this code with an authenticator app, then enter the six-digit code it gives you.</p></div>
+        <img class="mfa-qr" id="mfaQrCode" alt="Authenticator app setup QR code" />
+        <p class="mfa-secret" id="mfaSecret"></p>
+        <form id="mfaEnrollForm"><label>Authenticator code<input id="mfaEnrollCode" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" required /></label><button class="btn btn-primary" type="submit">Verify and Continue</button></form>
+        <p class="form-status" id="mfaEnrollStatus" role="status"></p>
+      </section>
+      <section class="auth-gate-panel" id="mfaVerifyPanel" hidden>
+        <div><p class="eyebrow">Multi-factor access</p><h1>Verify identity.</h1><p>Enter the current six-digit code from your authenticator app.</p></div>
+        <form id="mfaVerifyForm"><label>Authenticator code<input id="mfaVerifyCode" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" required /></label><button class="btn btn-primary" type="submit">Verify and Continue</button></form>
+        <p class="form-status" id="mfaVerifyStatus" role="status"></p>
+      </section>
+    </section>
+
+    <div class="admin-shell" id="adminShell">
+      <header class="admin-header">
+        <nav class="nav container" aria-label="Admin navigation">
+          <a class="brand" href="index.html"><span class="brand-mark">JC</span><span class="brand-copy"><strong>PORTFOLIO ADMIN</strong><small>CONTENT OPERATIONS</small></span></a>
+          <div class="nav-links"><a href="#editor">Editor</a><a href="#items">Records</a><a href="#inbox">Inbox</a><a href="#audit">Audit</a></div>
+          <a class="nav-admin" href="index.html"><span aria-hidden="true">↗</span> Live Site</a>
+        </nav>
+        <div class="admin-hero container">
+          <div><div class="hero-route"><span>Administration</span><span>Content Network</span></div><p class="eyebrow">Control Room / Authorized Access</p><h1>Portfolio <span>operations.</span></h1><p class="hero-text">Create, stage, preview, schedule, and publish every portfolio record from one workspace.</p></div>
+          <aside class="admin-status depth-card"><div class="panel-header"><span class="status-dot" aria-hidden="true"></span><span>Storage telemetry</span><small>SYNC</small></div><strong id="storageMode">Checking storage...</strong><p id="authStatus">Initializing access...</p><div class="admin-actions"><button class="btn btn-secondary" type="button" id="seedButton">Import Starter Content</button><button class="btn btn-secondary" type="button" id="signOutButton" hidden>Sign Out</button></div></aside>
+        </div>
+      </header>
+
+      <main class="admin-main container" id="adminMain">
+        <section class="admin-grid">
+          <form class="admin-form depth-card" id="itemForm">
+            <div class="form-heading" id="editor"><p class="eyebrow">01 / Record Editor</p><h2 id="formTitle">Add Portfolio Item</h2></div>
+            <input type="hidden" id="itemId" />
+            <div class="form-row compact-row">
+              <label>Type<select id="itemType" required><option value="skill">Skill</option><option value="project">Project</option><option value="certificate">Certificate</option><option value="experience">Experience / Education</option></select></label>
+              <label>Sort order<input id="itemSort" type="number" value="0" /></label>
+            </div>
+            <label>Title<input id="itemTitle" type="text" required placeholder="Example: React and Next.js" /></label>
+            <div class="form-row compact-row"><label>Category or issuer<input id="itemCategory" type="text" placeholder="Web, AI, Cisco, Education" /></label><label>Subtitle or date<input id="itemSubtitle" type="text" placeholder="2026, Full-stack, Completion" /></label></div>
+            <label>Description<textarea id="itemDescription" rows="4" placeholder="What this record proves or delivers."></textarea></label>
+            <label>Tags<input id="itemTags" type="text" placeholder="Comma-separated: Supabase, Auth, SQL" /></label>
+            <label>External link<input id="itemUrl" type="url" placeholder="https://..." /></label>
+            <div class="media-editor">
+              <div><p class="field-label">Project or certificate image</p><p>JPG, PNG, WEBP, or GIF up to 5 MB.</p></div>
+              <input id="mediaFile" type="file" accept="image/jpeg,image/png,image/webp,image/gif" />
+              <button class="btn btn-outline" id="uploadButton" type="button">Upload Image</button>
+              <button class="btn btn-outline" id="appendGalleryButton" type="button">Add To Gallery</button>
+              <label>Image URL<input id="itemImageUrl" type="url" placeholder="Uploaded image URL" /></label>
+              <label>Gallery image URLs<textarea id="itemGalleryUrls" rows="4" placeholder="One image URL per line. Use this for screenshots, diagrams, certificates, or build previews."></textarea><small>Upload an image, then use Add To Gallery or paste URLs here later.</small></label>
+            </div>
+            <fieldset class="case-fields" id="caseFields">
+              <legend>Case study detail</legend>
+              <label>My role<input id="itemRole" type="text" placeholder="Example: Full-stack developer, AI workflow builder" /></label>
+              <label>Stack summary<input id="itemStackSummary" type="text" placeholder="Example: React, Supabase, Edge Functions, PostgreSQL" /></label>
+              <label>Challenge<textarea id="itemChallenge" rows="3"></textarea></label>
+              <label>Approach<textarea id="itemSolution" rows="3"></textarea></label>
+              <label>Outcome<textarea id="itemOutcome" rows="3"></textarea></label>
+              <label>What I learned<textarea id="itemLearnings" rows="3"></textarea></label>
+              <label>Future improvements<textarea id="itemNextSteps" rows="3"></textarea></label>
+            </fieldset>
+            <label>Publish at<input id="itemPublishAt" type="datetime-local" /><small>Leave blank to publish immediately when Published is enabled.</small></label>
+            <div class="form-row toggle-row"><label class="check-label"><input id="itemFeatured" type="checkbox" />Featured</label><label class="check-label"><input id="itemPublished" type="checkbox" checked />Published</label></div>
+            <div class="admin-actions"><button class="btn btn-primary" type="submit">Save Item</button><button class="btn btn-outline" type="button" id="resetFormButton">Clear</button></div>
+          </form>
+
+          <div class="admin-side-stack">
+            <section class="admin-panel depth-card"><p class="eyebrow">02 / Live Preview</p><h2>Record Preview</h2><div class="editor-preview" id="editorPreview"></div></section>
+            <section class="admin-panel depth-card"><p class="eyebrow">03 / Data Link</p><h2>Protected Cloud Sync</h2><p>Portfolio records, media, and inbox access require an allowlisted administrator session with multi-factor verification. Database policies enforce this even if someone reaches this page directly.</p><div class="setup-steps"><span>Security status</span><span>RLS + MFA + audit logging</span></div></section>
+          </div>
+        </section>
+
+        <section class="admin-list-section" id="items">
+          <div class="list-heading-row"><div class="section-heading narrow"><p class="eyebrow">04 / Record Inventory</p><h2>Current portfolio content</h2></div><div class="list-controls"><label>Search<input id="recordSearch" type="search" placeholder="Search records" /></label><label>Type<select id="recordFilter"><option value="all">All types</option><option value="skill">Skills</option><option value="project">Projects</option><option value="certificate">Certificates</option><option value="experience">Experience</option></select></label></div></div>
+          <p class="drag-help">Drag records to change their display order.</p>
+          <div class="admin-list depth-grid" id="adminList" aria-live="polite"></div>
+        </section>
+
+        <section class="admin-list-section" id="inbox">
+          <div class="section-heading narrow"><p class="eyebrow">05 / Contact Inbox</p><h2>Portfolio messages</h2></div>
+          <div class="message-list" id="messageList" aria-live="polite"></div>
+        </section>
+        <section class="admin-list-section" id="audit">
+          <div class="section-heading narrow"><p class="eyebrow">06 / Integrity Log</p><h2>Content audit trail</h2></div>
+          <div class="audit-list" id="auditList" aria-live="polite"></div>
+        </section>
+      </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.2"></script><script src="supabase-config.js"></script><script src="security.js"></script><script src="portfolio-data.js"></script><script src="admin.js"></script><script src="site.js"></script>
+  </body>
+</html>

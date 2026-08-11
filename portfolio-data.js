@@ -52,6 +52,9 @@
   }
 
   function normalize(item) {
+    const security = window.PortfolioSecurity || {};
+    const imageUrl = security.imageUrl || ((value) => value || "");
+    const externalUrl = security.externalUrl || ((value) => value || "");
     return {
       id: item.id || cryptoId(),
       type: item.type || "skill",
@@ -60,9 +63,9 @@
       subtitle: item.subtitle || "",
       description: item.description || "",
       tags: Array.isArray(item.tags) ? item.tags : String(item.tags || "").split(",").map((tag) => tag.trim()).filter(Boolean),
-      url: item.url || "",
-      image_url: item.image_url || "",
-      gallery_urls: Array.isArray(item.gallery_urls) ? item.gallery_urls : String(item.gallery_urls || "").split(/\r?\n|,/).map((url) => url.trim()).filter(Boolean),
+      url: externalUrl(item.url),
+      image_url: imageUrl(item.image_url),
+      gallery_urls: (Array.isArray(item.gallery_urls) ? item.gallery_urls : String(item.gallery_urls || "").split(/\r?\n|,/)).map(imageUrl).filter(Boolean),
       role: item.role || "",
       stack_summary: item.stack_summary || "",
       learnings: item.learnings || "",
@@ -144,6 +147,7 @@
       if (file.size > 1.5 * 1024 * 1024) throw new Error("Local preview images must be smaller than 1.5 MB. Supabase mode supports up to 5 MB.");
       return fileToDataUrl(file);
     }
+    if (!await isAdminSession()) throw new Error("A verified administrator MFA session is required before uploading media.");
     const { data: authData } = await sb.auth.getUser();
     if (!authData.user) throw new Error("Sign in before uploading media.");
     const cleanName = file.name.toLowerCase().replace(/[^a-z0-9.]+/g, "-");
@@ -175,11 +179,13 @@
   }
 
   async function submitMessage(message) {
-    const record = { id: cryptoId(), name: message.name.trim(), email: message.email.trim(), subject: message.subject.trim(), message: message.message.trim(), status: "new", created_at: new Date().toISOString() };
+    const security = window.PortfolioSecurity || {};
+    const validEmail = (security.email || ((value) => value))(message.email);
+    const record = { id: cryptoId(), name: message.name.trim(), email: validEmail, subject: message.subject.trim(), message: message.message.trim(), status: "new", created_at: new Date().toISOString() };
     if (!record.name || !record.email || !record.message) throw new Error("Name, email, and message are required.");
     const sb = client();
     if (!sb) { localStorage.setItem(MESSAGE_KEY, JSON.stringify([record, ...localMessages()])); return record; }
-    const { error } = await sb.from("contact_messages").insert({ name: record.name, email: record.email, subject: record.subject, message: record.message });
+    const { error } = await sb.functions.invoke("contact-submit", { body: { name: record.name, email: record.email, subject: record.subject, message: record.message, turnstileToken: message.turnstileToken || "" } });
     if (error) throw error;
     return record;
   }
@@ -209,5 +215,24 @@
     if (error) throw error;
   }
 
-  window.PortfolioStore = { starterItems: clone(starterItems), hasSupabaseConfig, client, loadItems, loadItem, saveItem, deleteItem, uploadMedia, seedStarterItems, submitMessage, loadMessages, setMessageStatus, deleteMessage, normalize, sortItems, isVisible };
+  async function loadAuditLog() {
+    const sb = client();
+    if (!sb) return [];
+    const { data, error } = await sb.from("portfolio_audit_log").select("*").order("created_at", { ascending: false }).limit(30);
+    if (error) throw error;
+    return data || [];
+  }
+
+  async function isAdminSession() {
+    const sb = client();
+    if (!sb) return true;
+    const [{ data: access, error: accessError }, { data: assurance, error: assuranceError }] = await Promise.all([
+      sb.rpc("is_portfolio_admin"),
+      sb.auth.mfa.getAuthenticatorAssuranceLevel()
+    ]);
+    if (accessError || assuranceError) return false;
+    return Boolean(access && assurance.currentLevel === "aal2");
+  }
+
+  window.PortfolioStore = { starterItems: clone(starterItems), hasSupabaseConfig, client, loadItems, loadItem, saveItem, deleteItem, uploadMedia, seedStarterItems, submitMessage, loadMessages, setMessageStatus, deleteMessage, loadAuditLog, isAdminSession, normalize, sortItems, isVisible };
 })();

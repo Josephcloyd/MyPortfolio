@@ -1,0 +1,4 @@
+Contact: mailto:Danojosephclyde@gmail.com
+Policy: /security.html
+Preferred-Languages: en
+Expires: 2027-08-11T00:00:00.000Z

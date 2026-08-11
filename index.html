@@ -276,11 +276,13 @@
             </div>
             <label>Subject<input id="contactSubject" type="text" maxlength="180" /></label>
             <label>Message<textarea id="contactMessage" rows="4" maxlength="5000" required></textarea></label>
+            <div class="turnstile-slot" id="turnstileWidget" hidden aria-live="polite"></div>
             <div class="contact-actions">
               <button class="btn btn-primary" type="submit">Send Message</button>
               <a class="btn btn-outline" href="resume.html">View Résumé</a>
             </div>
             <p class="form-status" id="contactStatus" role="status"></p>
+            <p class="privacy-note">By sending a message, you agree to the limited processing described in the <a href="privacy.html">privacy notice</a>.</p>
           </form>
         </div>
       </section>
@@ -289,7 +291,7 @@
     <footer class="footer">
       <div class="container">
         <span>Joseph Clyde Daño</span>
-        <span class="footer-links"><a href="resume.html">Résumé</a><a data-social="github" hidden>GitHub</a><a data-social="linkedin" hidden>LinkedIn</a><span>© <span data-year></span></span></span>
+        <span class="footer-links"><a href="resume.html">Résumé</a><a href="privacy.html">Privacy</a><a href="security.html">Security</a><a data-social="github" hidden>GitHub</a><a data-social="linkedin" hidden>LinkedIn</a><span>© <span data-year></span></span></span>
       </div>
     </footer>
 
@@ -306,8 +308,9 @@
       </section>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.2"></script>
     <script src="supabase-config.js"></script>
+    <script src="security.js"></script>
     <script src="portfolio-data.js"></script>
     <script src="portfolio-view.js"></script>
     <script src="contact.js"></script>

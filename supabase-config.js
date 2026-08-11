@@ -8,5 +8,7 @@ window.PORTFOLIO_SITE = {
   resumeUrl: "resume.html",
   githubUrl: "https://github.com/josephcloyd",
   linkedinUrl: "",
-  analyticsId: ""
+  analyticsId: "",
+  turnstileSiteKey: "",
+  publicSiteUrl: ""
 };

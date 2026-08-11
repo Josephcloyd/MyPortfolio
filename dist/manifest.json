@@ -1,0 +1,9 @@
+{
+  "name": "Joseph Clyde Daño Portfolio",
+  "short_name": "JC Portfolio",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#080908",
+  "theme_color": "#080908",
+  "description": "Systems portfolio covering full-stack development, AI automation, databases, and embedded systems."
+}
