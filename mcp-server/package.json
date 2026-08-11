@@ -1,0 +1,25 @@
+{
+  "name": "jc-portfolio-mcp-server",
+  "version": "1.0.0",
+  "description": "Model Context Protocol (MCP) server for Joseph Clyde's Portfolio",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node index.js"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "portfolio",
+    "ai-assistant"
+  ],
+  "author": "Joseph Clyde",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.6.1",
+    "@supabase/supabase-js": "^2.49.1",
+    "dotenv": "^16.4.7",
+    "zod": "^3.24.1"
+  }
+}
