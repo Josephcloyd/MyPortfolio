@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-label="Illustration: a planning dashboard turning a chat request into a production schedule and an Excel workbook">
+  <defs>
+    <pattern id="g" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#1b1b20"/></pattern>
+    <radialGradient id="glow" cx="45%" cy="35%" r="65%"><stop offset="0" stop-color="#a3e635" stop-opacity=".13"/><stop offset="1" stop-color="#a3e635" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="#0d0d10"/>
+  <rect width="1600" height="1000" fill="url(#g)"/>
+  <rect width="1600" height="1000" fill="url(#glow)"/>
+  <g font-family="ui-monospace, Menlo, Consolas, monospace">
+    <!-- Dashboard window -->
+    <rect x="120" y="130" width="980" height="740" rx="18" fill="#141417" stroke="#2a2a2f" stroke-width="2"/>
+    <path d="M120 148a18 18 0 0 1 18-18h944a18 18 0 0 1 18 18v38H120z" fill="#18181b"/>
+    <circle cx="156" cy="158" r="7" fill="#3f3f46"/><circle cx="180" cy="158" r="7" fill="#3f3f46"/><circle cx="204" cy="158" r="7" fill="#3f3f46"/>
+    <text x="250" y="164" fill="#a1a1aa" font-size="16">lifeplan / production-plan</text>
+    <line x1="120" y1="186" x2="1100" y2="186" stroke="#2a2a2f" stroke-width="2"/>
+    <!-- Sidebar -->
+    <rect x="140" y="206" width="170" height="644" rx="10" fill="#18181b" stroke="#26262b"/>
+    <rect x="160" y="230" width="90" height="14" rx="7" fill="#a3e635"/>
+    <rect x="160" y="276" width="120" height="12" rx="6" fill="#3f3f46"/>
+    <rect x="160" y="312" width="100" height="12" rx="6" fill="#3f3f46"/>
+    <rect x="160" y="348" width="128" height="12" rx="6" fill="#3f3f46"/>
+    <rect x="160" y="384" width="84" height="12" rx="6" fill="#3f3f46"/>
+    <!-- Header cards -->
+    <text x="340" y="240" fill="#f4f4f5" font-size="26" font-weight="700" font-family="ui-sans-serif, system-ui, sans-serif">Production plan</text>
+    <rect x="340" y="266" width="230" height="96" rx="12" fill="#18181b" stroke="#26262b"/>
+    <rect x="360" y="290" width="80" height="10" rx="5" fill="#52525b"/><rect x="360" y="316" width="140" height="22" rx="6" fill="#3f3f46"/>
+    <rect x="590" y="266" width="230" height="96" rx="12" fill="#18181b" stroke="#26262b"/>
+    <rect x="610" y="290" width="80" height="10" rx="5" fill="#52525b"/><rect x="610" y="316" width="120" height="22" rx="6" fill="#3f3f46"/>
+    <rect x="840" y="266" width="240" height="96" rx="12" fill="#18181b" stroke="#a3e635" stroke-opacity=".5"/>
+    <rect x="860" y="290" width="80" height="10" rx="5" fill="#52525b"/><rect x="860" y="316" width="160" height="22" rx="6" fill="#a3e635" fill-opacity=".85"/>
+    <!-- Gantt schedule -->
+    <rect x="340" y="384" width="740" height="466" rx="12" fill="#18181b" stroke="#26262b"/>
+    <g stroke="#232328">
+      <line x1="500" y1="404" x2="500" y2="830"/><line x1="645" y1="404" x2="645" y2="830"/><line x1="790" y1="404" x2="790" y2="830"/><line x1="935" y1="404" x2="935" y2="830"/>
+    </g>
+    <g fill="#3f3f46">
+      <rect x="360" y="430" width="110" height="12" rx="6"/><rect x="360" y="500" width="90" height="12" rx="6"/><rect x="360" y="570" width="120" height="12" rx="6"/>
+      <rect x="360" y="640" width="96" height="12" rx="6"/><rect x="360" y="710" width="110" height="12" rx="6"/><rect x="360" y="780" width="80" height="12" rx="6"/>
+    </g>
+    <rect x="510" y="420" width="250" height="32" rx="8" fill="#a3e635"/>
+    <rect x="600" y="490" width="300" height="32" rx="8" fill="#a3e635" fill-opacity=".7"/>
+    <rect x="700" y="560" width="220" height="32" rx="8" fill="#a3e635" fill-opacity=".5"/>
+    <rect x="540" y="630" width="180" height="32" rx="8" fill="#52525b"/>
+    <rect x="820" y="700" width="230" height="32" rx="8" fill="#a3e635" fill-opacity=".35"/>
+    <rect x="910" y="770" width="150" height="32" rx="8" fill="#52525b"/>
+    <!-- Chat request card -->
+    <rect x="1170" y="190" width="320" height="200" rx="18" fill="#141417" stroke="#2a2a2f" stroke-width="2"/>
+    <text x="1196" y="230" fill="#71717a" font-size="16">request</text>
+    <rect x="1196" y="252" width="250" height="44" rx="14" fill="#27272a"/>
+    <rect x="1214" y="268" width="180" height="12" rx="6" fill="#71717a"/>
+    <rect x="1236" y="312" width="230" height="44" rx="14" fill="#a3e635" fill-opacity=".16" stroke="#a3e635" stroke-opacity=".5"/>
+    <rect x="1256" y="328" width="150" height="12" rx="6" fill="#a3e635"/>
+    <!-- Flow arrows -->
+    <path d="M1330 400v70" stroke="#a3e635" stroke-width="3" stroke-dasharray="8 8"/>
+    <path d="M1318 462l12 16 12-16" fill="none" stroke="#a3e635" stroke-width="3"/>
+    <path d="M1100 520h60" stroke="#3f3f46" stroke-width="3" stroke-dasharray="8 8"/>
+    <!-- Workbook card -->
+    <rect x="1170" y="490" width="320" height="300" rx="18" fill="#141417" stroke="#2a2a2f" stroke-width="2"/>
+    <rect x="1196" y="520" width="44" height="54" rx="6" fill="#a3e635"/>
+    <path d="M1206 536l24 26M1230 536l-24 26" stroke="#0d0d10" stroke-width="5"/>
+    <text x="1256" y="545" fill="#f4f4f5" font-size="20">plan.xlsx</text>
+    <text x="1256" y="570" fill="#71717a" font-size="15">generated</text>
+    <g stroke="#2e2e34">
+      <rect x="1196" y="600" width="268" height="164" fill="#18181b"/>
+      <line x1="1196" y1="633" x2="1464" y2="633"/><line x1="1196" y1="666" x2="1464" y2="666"/><line x1="1196" y1="699" x2="1464" y2="699"/><line x1="1196" y1="732" x2="1464" y2="732"/>
+      <line x1="1263" y1="600" x2="1263" y2="764"/><line x1="1330" y1="600" x2="1330" y2="764"/><line x1="1397" y1="600" x2="1397" y2="764"/>
+    </g>
+    <rect x="1196" y="600" width="268" height="33" fill="#a3e635" fill-opacity=".14"/>
+  </g>
+</svg>

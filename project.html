@@ -3,30 +3,53 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#080908" />
-    <title>Project Case Study | Joseph Clyde Daño</title>
-    <meta name="description" content="Project case study from the systems portfolio of Joseph Clyde Daño." />
-    <link rel="icon" href="og.png" type="image/png" />
-    <link rel="stylesheet" href="styles.css?v=1.4" />
+    <title>Project Case Study — Joseph Clyde S. Daño</title>
+    <meta name="description" content="Project case study by Joseph Clyde S. Daño, software developer." />
+    <meta name="theme-color" content="#09090b" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Project Case Study — Joseph Clyde S. Daño" />
+    <meta property="og:image" content="og.png" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="styles.css?v=2.0" />
+    <script src="theme-init.js"></script>
+    <script defer src="content.js"></script>
+    <script defer src="brand-icons.js"></script>
+    <script defer src="icons.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.2"></script>
+    <script defer src="supabase-config.js"></script>
+    <script defer src="security.js"></script>
+    <script defer src="portfolio-data.js"></script>
+    <script defer src="project-view.js"></script>
+    <script defer src="site.js"></script>
   </head>
-  <body class="detail-body">
-    <a class="skip-link" href="#caseStudy">Skip to case study</a>
-    <header class="detail-header">
-      <nav class="nav container" aria-label="Case study navigation">
-        <a class="brand" href="index.html"><span class="brand-mark">JC</span><span class="brand-copy"><strong>JOSEPH CLYDE</strong><small>CASE STUDY</small></span></a>
-        <div class="nav-links detail-nav"><a href="index.html#projects">All Projects</a><a href="resume.html">Résumé</a><a href="index.html#contact">Contact</a></div>
-        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch color theme" aria-pressed="false"><span data-theme-icon>☾</span></button>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-nav is-solid" data-nav>
+      <nav class="container nav-inner" aria-label="Primary">
+        <a class="logo" href="index.html" aria-label="Joseph Clyde S. Daño — home">JD<span>.</span></a>
+        <a class="back-link" href="index.html#projects"><i class="icon" data-icon="arrow-left"></i>All projects</a>
+        <div class="nav-actions">
+          <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch to light theme"><i class="icon" data-icon="sun"></i></button>
+          <a class="btn btn-primary btn-sm" href="resume.html" data-resume-link><i class="icon" data-icon="download"></i>Resume</a>
+        </div>
       </nav>
     </header>
-    <main class="case-study container" id="caseStudy" aria-live="polite">
-      <div class="loading-panel">Loading project record...</div>
+
+    <main id="main" class="case" aria-live="polite">
+      <div class="container case-loading">Loading project…</div>
     </main>
-    <footer class="footer"><div class="container"><span>Joseph Clyde Daño</span><a href="index.html#projects">Return to project network</a></div></footer>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.2"></script>
-    <script src="supabase-config.js"></script>
-    <script src="security.js"></script>
-    <script src="portfolio-data.js"></script>
-    <script src="project-view.js"></script>
-    <script src="site.js"></script>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <span>© <span data-year>2026</span> Joseph Clyde S. Daño</span>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="index.html#projects">Projects</a>
+          <a href="index.html#contact">Contact</a>
+          <a href="resume.html">Resume</a>
+        </nav>
+      </div>
+    </footer>
+    <div class="toast" role="status" aria-live="polite" data-toast></div>
   </body>
 </html>

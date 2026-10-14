@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-label="Illustration: a phone chat sending a planning request to a backend that returns a workbook link">
+  <defs>
+    <pattern id="g" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#1b1b20"/></pattern>
+    <radialGradient id="glow" cx="40%" cy="45%" r="60%"><stop offset="0" stop-color="#a3e635" stop-opacity=".12"/><stop offset="1" stop-color="#a3e635" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="#0d0d10"/>
+  <rect width="1600" height="1000" fill="url(#g)"/>
+  <rect width="1600" height="1000" fill="url(#glow)"/>
+  <g font-family="ui-monospace, Menlo, Consolas, monospace">
+    <!-- Phone -->
+    <rect x="360" y="110" width="400" height="780" rx="54" fill="#141417" stroke="#3f3f46" stroke-width="4"/>
+    <rect x="510" y="136" width="100" height="16" rx="8" fill="#27272a"/>
+    <rect x="390" y="180" width="340" height="66" rx="12" fill="#18181b"/>
+    <circle cx="430" cy="213" r="20" fill="#a3e635"/>
+    <rect x="464" y="200" width="150" height="12" rx="6" fill="#a1a1aa"/><rect x="464" y="222" width="90" height="10" rx="5" fill="#52525b"/>
+    <!-- Messages -->
+    <rect x="490" y="290" width="230" height="90" rx="20" fill="#a3e635" fill-opacity=".18" stroke="#a3e635" stroke-opacity=".55" stroke-width="2"/>
+    <rect x="512" y="314" width="180" height="12" rx="6" fill="#a3e635"/><rect x="512" y="340" width="120" height="12" rx="6" fill="#a3e635" fill-opacity=".7"/>
+    <rect x="400" y="410" width="250" height="120" rx="20" fill="#27272a"/>
+    <rect x="422" y="436" width="200" height="12" rx="6" fill="#a1a1aa"/><rect x="422" y="462" width="170" height="12" rx="6" fill="#71717a"/><rect x="422" y="488" width="120" height="12" rx="6" fill="#71717a"/>
+    <rect x="400" y="556" width="270" height="96" rx="20" fill="#27272a"/>
+    <rect x="422" y="580" width="44" height="50" rx="6" fill="#a3e635"/>
+    <path d="M431 594l26 26M457 594l-26 26" stroke="#0d0d10" stroke-width="5"/>
+    <text x="480" y="604" fill="#f4f4f5" font-size="18">plan.xlsx</text>
+    <rect x="480" y="618" width="110" height="10" rx="5" fill="#52525b"/>
+    <rect x="390" y="810" width="340" height="50" rx="25" fill="#18181b" stroke="#2a2a2f" stroke-width="2"/>
+    <circle cx="704" cy="835" r="16" fill="#a3e635"/>
+    <!-- Flow -->
+    <path d="M770 340h220" stroke="#a3e635" stroke-width="3" stroke-dasharray="10 8"/>
+    <path d="M980 328l16 12-16 12" fill="none" stroke="#a3e635" stroke-width="3"/>
+    <path d="M1000 600H780" stroke="#71717a" stroke-width="3" stroke-dasharray="10 8"/>
+    <path d="M792 588l-16 12 16 12" fill="none" stroke="#71717a" stroke-width="3"/>
+    <!-- Backend -->
+    <rect x="1010" y="250" width="300" height="420" rx="16" fill="#141417" stroke="#3f3f46" stroke-width="3"/>
+    <text x="1040" y="298" fill="#a1a1aa" font-size="20">planning service</text>
+    <g>
+      <rect x="1040" y="330" width="240" height="76" rx="10" fill="#18181b" stroke="#2a2a2f"/><circle cx="1072" cy="368" r="8" fill="#a3e635"/><rect x="1094" y="362" width="150" height="12" rx="6" fill="#52525b"/>
+      <rect x="1040" y="424" width="240" height="76" rx="10" fill="#18181b" stroke="#2a2a2f"/><circle cx="1072" cy="462" r="8" fill="#a3e635" fill-opacity=".6"/><rect x="1094" y="456" width="120" height="12" rx="6" fill="#52525b"/>
+      <rect x="1040" y="518" width="240" height="76" rx="10" fill="#18181b" stroke="#2a2a2f"/><circle cx="1072" cy="556" r="8" fill="#52525b"/><rect x="1094" y="550" width="140" height="12" rx="6" fill="#52525b"/>
+    </g>
+  </g>
+</svg>

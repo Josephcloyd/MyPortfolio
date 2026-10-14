@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-label="Illustration: an ESP32 board wired to an RFID reader and camera module, with a card being scanned and serial output">
+  <defs>
+    <pattern id="g" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#1b1b20"/></pattern>
+    <radialGradient id="glow" cx="45%" cy="45%" r="60%"><stop offset="0" stop-color="#a3e635" stop-opacity=".12"/><stop offset="1" stop-color="#a3e635" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="#0d0d10"/>
+  <rect width="1600" height="1000" fill="url(#g)"/>
+  <rect width="1600" height="1000" fill="url(#glow)"/>
+  <g font-family="ui-monospace, Menlo, Consolas, monospace">
+    <!-- Wires -->
+    <g fill="none" stroke-width="3" stroke-dasharray="10 8">
+      <path d="M800 470H660q-30 0-30-30v-60h-40" stroke="#a3e635"/>
+      <path d="M800 540H640q-30 0-30 30v90h-30" stroke="#71717a"/>
+      <path d="M1040 470h80q30 0 30-30v-40h60" stroke="#a3e635"/>
+    </g>
+    <!-- ESP32 board -->
+    <rect x="800" y="360" width="240" height="380" rx="14" fill="#141417" stroke="#3f3f46" stroke-width="3"/>
+    <path d="M840 386h40v24h-28v20h28v20h-28v20h40" fill="none" stroke="#a3e635" stroke-width="5"/>
+    <rect x="860" y="500" width="120" height="120" rx="8" fill="#27272a" stroke="#52525b" stroke-width="2"/>
+    <text x="878" y="568" fill="#f4f4f5" font-size="24" font-weight="700">ESP32</text>
+    <g fill="#52525b">
+      <rect x="784" y="420" width="18" height="10"/><rect x="784" y="450" width="18" height="10"/><rect x="784" y="480" width="18" height="10"/><rect x="784" y="510" width="18" height="10"/><rect x="784" y="540" width="18" height="10"/><rect x="784" y="570" width="18" height="10"/><rect x="784" y="600" width="18" height="10"/><rect x="784" y="630" width="18" height="10"/><rect x="784" y="660" width="18" height="10"/><rect x="784" y="690" width="18" height="10"/>
+      <rect x="1038" y="420" width="18" height="10"/><rect x="1038" y="450" width="18" height="10"/><rect x="1038" y="480" width="18" height="10"/><rect x="1038" y="510" width="18" height="10"/><rect x="1038" y="540" width="18" height="10"/><rect x="1038" y="570" width="18" height="10"/><rect x="1038" y="600" width="18" height="10"/><rect x="1038" y="630" width="18" height="10"/><rect x="1038" y="660" width="18" height="10"/><rect x="1038" y="690" width="18" height="10"/>
+    </g>
+    <circle cx="1000" cy="700" r="7" fill="#a3e635"/>
+    <rect x="880" y="736" width="80" height="22" rx="4" fill="#27272a" stroke="#52525b"/>
+    <!-- RFID reader -->
+    <rect x="300" y="250" width="290" height="250" rx="14" fill="#141417" stroke="#3f3f46" stroke-width="3"/>
+    <rect x="340" y="290" width="210" height="170" rx="10" fill="none" stroke="#a3e635" stroke-width="3" stroke-opacity=".7"/>
+    <rect x="364" y="314" width="162" height="122" rx="8" fill="none" stroke="#a3e635" stroke-width="3" stroke-opacity=".45"/>
+    <text x="398" y="388" fill="#a1a1aa" font-size="20">RFID</text>
+    <!-- Card + waves -->
+    <g transform="rotate(-10 250 160)">
+      <rect x="150" y="90" width="230" height="146" rx="14" fill="#a3e635"/>
+      <rect x="178" y="134" width="46" height="36" rx="6" fill="#0d0d10" fill-opacity=".85"/>
+      <rect x="178" y="194" width="140" height="10" rx="5" fill="#0d0d10" fill-opacity=".55"/>
+    </g>
+    <g fill="none" stroke="#a3e635" stroke-linecap="round" stroke-width="4">
+      <path d="M420 200q30 20 30 50" stroke-opacity=".9"/><path d="M440 170q50 30 50 80" stroke-opacity=".6"/><path d="M460 140q70 40 70 110" stroke-opacity=".35"/>
+    </g>
+    <!-- Camera module -->
+    <rect x="320" y="580" width="260" height="190" rx="14" fill="#141417" stroke="#3f3f46" stroke-width="3"/>
+    <circle cx="450" cy="675" r="58" fill="#18181b" stroke="#52525b" stroke-width="3"/>
+    <circle cx="450" cy="675" r="34" fill="#0d0d10" stroke="#a3e635" stroke-width="3"/>
+    <circle cx="438" cy="662" r="8" fill="#a3e635" fill-opacity=".6"/>
+    <text x="344" y="612" fill="#71717a" font-size="16">CAM</text>
+    <!-- Serial monitor -->
+    <rect x="1210" y="300" width="300" height="300" rx="14" fill="#141417" stroke="#2a2a2f" stroke-width="2"/>
+    <path d="M1210 314a14 14 0 0 1 14-14h272a14 14 0 0 1 14 14v30h-300z" fill="#18181b"/>
+    <text x="1232" y="330" fill="#a1a1aa" font-size="16">serial</text>
+    <text x="1232" y="390" fill="#71717a" font-size="18">&gt; boot</text>
+    <text x="1232" y="428" fill="#71717a" font-size="18">&gt; reader ready</text>
+    <text x="1232" y="466" fill="#a3e635" font-size="18">&gt; tag detected</text>
+    <text x="1232" y="504" fill="#71717a" font-size="18">&gt; camera ok</text>
+    <rect x="1232" y="530" width="14" height="22" fill="#a3e635"/>
+  </g>
+</svg>

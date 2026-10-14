@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-label="Illustration: an arithmetic logic unit block diagram with adder, subtractor, and comparator feeding a multiplexer">
+  <defs>
+    <pattern id="g" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#1b1b20"/></pattern>
+    <radialGradient id="glow" cx="55%" cy="50%" r="60%"><stop offset="0" stop-color="#a3e635" stop-opacity=".11"/><stop offset="1" stop-color="#a3e635" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="#0d0d10"/>
+  <rect width="1600" height="1000" fill="url(#g)"/>
+  <rect width="1600" height="1000" fill="url(#glow)"/>
+  <g font-family="ui-monospace, Menlo, Consolas, monospace">
+    <!-- Inputs -->
+    <text x="150" y="350" fill="#71717a" font-size="20">A</text>
+    <text x="190" y="352" fill="#f4f4f5" font-size="40" letter-spacing="6">1011</text>
+    <text x="150" y="650" fill="#71717a" font-size="20">B</text>
+    <text x="190" y="652" fill="#f4f4f5" font-size="40" letter-spacing="6">0110</text>
+    <!-- Bus lines -->
+    <g fill="none" stroke="#52525b" stroke-width="3">
+      <path d="M340 338h60v-118h90"/><path d="M400 338v140h90"/><path d="M400 338v400h90"/>
+      <path d="M340 638h40v-388h110"/><path d="M380 638v-130h110"/><path d="M380 638v130h110"/>
+    </g>
+    <!-- Units -->
+    <g>
+      <rect x="490" y="180" width="300" height="110" rx="12" fill="#141417" stroke="#a3e635" stroke-width="3"/>
+      <text x="530" y="232" fill="#f4f4f5" font-size="28" font-weight="700">ADDER</text>
+      <text x="530" y="264" fill="#71717a" font-size="18">A + B</text>
+      <rect x="490" y="440" width="300" height="110" rx="12" fill="#141417" stroke="#3f3f46" stroke-width="3"/>
+      <text x="530" y="492" fill="#f4f4f5" font-size="28" font-weight="700">SUBTRACTOR</text>
+      <text x="530" y="524" fill="#71717a" font-size="18">A − B</text>
+      <rect x="490" y="700" width="300" height="110" rx="12" fill="#141417" stroke="#3f3f46" stroke-width="3"/>
+      <text x="530" y="752" fill="#f4f4f5" font-size="28" font-weight="700">COMPARATOR</text>
+      <text x="530" y="784" fill="#71717a" font-size="18">A &gt; B · A = B · A &lt; B</text>
+    </g>
+    <!-- To MUX -->
+    <g fill="none" stroke-width="3">
+      <path d="M790 235h110v175h120" stroke="#a3e635"/>
+      <path d="M790 495h230" stroke="#52525b"/>
+      <path d="M790 755h110v-175h120" stroke="#52525b"/>
+    </g>
+    <!-- MUX -->
+    <path d="M1020 340l140 60v190l-140 60z" fill="#141417" stroke="#f4f4f5" stroke-width="3"/>
+    <text x="1046" y="505" fill="#f4f4f5" font-size="28" font-weight="700">MUX</text>
+    <path d="M1090 660v80" stroke="#71717a" stroke-width="3"/>
+    <text x="1046" y="780" fill="#71717a" font-size="20">S1 S0</text>
+    <text x="1046" y="812" fill="#a3e635" font-size="20">0  0</text>
+    <!-- Output -->
+    <path d="M1160 495h110" stroke="#a3e635" stroke-width="3"/>
+    <path d="M1258 483l16 12-16 12" fill="none" stroke="#a3e635" stroke-width="3"/>
+    <text x="1290" y="470" fill="#71717a" font-size="20">OUT</text>
+    <text x="1290" y="512" fill="#a3e635" font-size="40" letter-spacing="6">10001</text>
+    <!-- Gate motifs -->
+    <g fill="none" stroke="#2e2e34" stroke-width="3">
+      <path d="M1250 170h40a40 40 0 0 1 0 80h-40z"/><path d="M1220 190h30M1220 230h30M1330 210h30"/>
+      <path d="M1250 760q30 40 0 80q70 0 100-40q-30-40-100-40z"/><path d="M1220 780h36M1220 820h36M1350 800h30"/>
+    </g>
+  </g>
+</svg>

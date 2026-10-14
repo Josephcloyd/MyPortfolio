@@ -8,7 +8,11 @@
   let widgetId = null;
   if (!form || !window.PortfolioStore) return;
 
-  if (window.PortfolioStore.hasSupabaseConfig()) setupTurnstile();
+  // The form only appears once it can deliver messages (Supabase + Turnstile configured).
+  // Until then, visitors use the direct email/phone details shown beside it.
+  if (!window.PortfolioStore.hasSupabaseConfig() || !config.turnstileSiteKey) return;
+  form.hidden = false;
+  setupTurnstile();
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -27,7 +31,6 @@
   });
 
   function setupTurnstile() {
-    if (!config.turnstileSiteKey) { button.disabled = true; status.textContent = "Secure contact verification is being configured."; return; }
     widget.hidden = false;
     const script = document.createElement("script");
     script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";

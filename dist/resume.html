@@ -3,21 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Résumé | Joseph Clyde Daño</title>
-    <meta name="description" content="Résumé of Joseph Clyde Daño, Computer Engineering student and systems developer." />
-    <link rel="icon" href="og.png" type="image/png" />
-    <link rel="stylesheet" href="styles.css?v=1.4" />
+    <title>Resume — Joseph Clyde S. Daño</title>
+    <meta name="description" content="Resume of Joseph Clyde S. Daño, software developer and systems builder based in Cebu City, Philippines." />
+    <meta name="theme-color" content="#09090b" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css?v=2.0" />
+    <script src="theme-init.js"></script>
+    <script defer src="content.js"></script>
+    <script defer src="icons.js"></script>
+    <script defer src="security.js"></script>
+    <script defer src="resume.js"></script>
+    <script defer src="site.js"></script>
   </head>
-  <body class="resume-body">
-    <header class="resume-toolbar"><div class="container"><a class="brand" href="index.html"><span class="brand-mark">JC</span><span class="brand-copy"><strong>JOSEPH CLYDE</strong><small>RÉSUMÉ</small></span></a><div class="admin-actions"><button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch color theme" aria-pressed="false"><span data-theme-icon>☾</span></button><a class="btn btn-outline" href="index.html">Portfolio</a><button class="btn btn-primary" type="button" id="printResume">Print / Save PDF</button></div></div></header>
-    <main class="resume-sheet" id="resumeContent">
-      <header class="resume-intro"><div><p class="eyebrow">Computer Engineering / Developer</p><h1>Joseph Clyde Daño</h1><p>Full-stack systems, AI automation, databases, and embedded prototypes.</p></div><div class="resume-contact"><a data-contact-email hidden>Email</a><a data-social="github" hidden>GitHub</a><a data-social="linkedin" hidden>LinkedIn</a></div></header>
-      <section><h2>Profile</h2><p>Computer Engineering student at the University of Cebu - Main Campus, expected to graduate in 2027. A practical systems builder focused on translating real workflows into usable software, automation, and connected hardware.</p></section>
-      <section><h2>Core Skills</h2><div class="resume-grid" id="resumeSkills"></div></section>
-      <section><h2>Selected Projects</h2><div class="resume-list" id="resumeProjects"></div></section>
-      <section><h2>Experience & Education</h2><div class="resume-list" id="resumeTimeline"></div></section>
-      <section><h2>Certificates</h2><div class="resume-list" id="resumeCertificates"></div></section>
+  <body class="resume-page">
+    <header class="site-nav is-solid" data-nav>
+      <nav class="container nav-inner" aria-label="Resume">
+        <a class="logo" href="index.html" aria-label="Joseph Clyde S. Daño — home">JD<span>.</span></a>
+        <a class="back-link" href="index.html"><i class="icon" data-icon="arrow-left"></i>Portfolio</a>
+        <div class="nav-actions">
+          <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch to light theme"><i class="icon" data-icon="sun"></i></button>
+          <a class="btn btn-ghost btn-sm" href="#" data-resume-pdf hidden><i class="icon" data-icon="download"></i>PDF</a>
+          <button class="btn btn-primary btn-sm" type="button" id="printResume"><i class="icon" data-icon="printer"></i>Print / Save PDF</button>
+        </div>
+      </nav>
+    </header>
+    <main id="main" class="container">
+      <article class="resume-sheet" data-resume aria-label="Resume"></article>
     </main>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.2"></script><script src="supabase-config.js"></script><script src="security.js"></script><script src="portfolio-data.js"></script><script src="resume.js"></script><script src="site.js"></script>
   </body>
 </html>

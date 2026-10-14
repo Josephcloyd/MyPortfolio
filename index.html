@@ -3,317 +3,204 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Joseph Clyde Daño | Spatial Portfolio</title>
-    <meta
-      name="description"
-      content="Spatial portfolio of Joseph Clyde Daño, a Computer Engineering student building full-stack apps, AI automation, databases, and embedded systems."
-    />
-    <meta name="theme-color" content="#080908" />
-    <meta property="og:title" content="Joseph Clyde Daño | Systems Portfolio" />
-    <meta property="og:description" content="Full-stack systems, AI automation, databases, and embedded prototypes." />
+    <title>Joseph Clyde S. Daño — Software Developer</title>
+    <meta name="description" content="Joseph Clyde S. Daño is a software developer and systems builder in Cebu City working across full-stack web development, backend services, AI integrations, and embedded systems." />
+    <meta name="author" content="Joseph Clyde S. Daño" />
+    <meta name="theme-color" content="#09090b" />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Joseph Clyde S. Daño" />
+    <meta property="og:title" content="Joseph Clyde S. Daño — Software Developer" />
+    <meta property="og:description" content="Full-stack web development, backend services, AI integrations, and embedded systems." />
     <meta property="og:image" content="og.png" />
-    <meta property="og:image:alt" content="Joseph Clyde Daño systems portfolio dashboard" />
+    <meta property="og:image:alt" content="Joseph Clyde S. Daño developer portfolio" />
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="icon" href="og.png" type="image/png" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="manifest" href="manifest.json" />
-    <link rel="stylesheet" href="styles.css?v=1.4" />
+    <link rel="preload" href="fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="styles.css?v=2.0" />
+    <script src="theme-init.js"></script>
+    <script defer src="content.js"></script>
+    <script defer src="brand-icons.js"></script>
+    <script defer src="icons.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.2"></script>
+    <script defer src="supabase-config.js"></script>
+    <script defer src="security.js"></script>
+    <script defer src="portfolio-data.js"></script>
+    <script defer src="home.js"></script>
+    <script defer src="contact.js"></script>
+    <script defer src="site.js"></script>
   </head>
-  <body class="portfolio-body">
+  <body>
     <a class="skip-link" href="#main">Skip to content</a>
 
-    <header class="hero spatial-hero" id="top">
-      <nav class="nav container" aria-label="Primary navigation">
-        <a class="brand" href="#top" aria-label="Joseph Clyde Daño home">
-          <span class="brand-mark">JC</span>
-          <span class="brand-copy"><strong>JOSEPH CLYDE</strong><small>PORTFOLIO SYSTEM</small></span>
-        </a>
-        <div class="nav-links">
-          <a href="#about">About</a>
-          <a href="#skills">Skills</a>
-          <a href="#projects">Projects</a>
-          <a href="#experience">Experience</a>
-          <a href="#certificates">Certificates</a>
-          <a href="#contact">Contact</a>
+    <header class="site-nav" data-nav>
+      <nav class="container nav-inner" aria-label="Primary">
+        <a class="logo" href="#home" aria-label="Joseph Clyde S. Daño — home">JD<span>.</span></a>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#home" data-nav-link>Home</a></li>
+          <li><a href="#about" data-nav-link>About</a></li>
+          <li><a href="#experience" data-nav-link>Experience</a></li>
+          <li><a href="#projects" data-nav-link>Projects</a></li>
+          <li><a href="#stack" data-nav-link>Tech Stack</a></li>
+          <li><a href="#contact" data-nav-link>Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+          <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch to light theme"><i class="icon" data-icon="sun"></i></button>
+          <a class="btn btn-primary btn-sm nav-resume" href="resume.html" data-resume-link><i class="icon" data-icon="download"></i><span class="nav-resume-long">Download&nbsp;</span>Resume</a>
+          <button class="icon-btn nav-menu-btn" type="button" data-menu-toggle aria-expanded="false" aria-controls="navLinks" aria-label="Open menu"><i class="icon" data-icon="menu"></i></button>
         </div>
-        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch color theme" aria-pressed="false">
-          <span data-theme-icon>☾</span>
-        </button>
       </nav>
-
-      <div class="hero-content container">
-        <div class="hero-copy">
-          <div class="hero-route"><span>Portfolio</span><span>System Overview</span></div>
-          <p class="eyebrow">Computer Engineering / Developer</p>
-          <h1>Joseph Clyde <span>Daño</span></h1>
-          <p class="hero-text">
-            Computer Engineering student building web apps, AI tools, Supabase systems,
-            and embedded prototypes for practical real-world workflows.
-          </p>
-          <div class="hero-badges" aria-label="Current focus">
-            <span>Full-stack</span><span>AI automation</span><span>Supabase</span><span>Embedded systems</span>
-          </div>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#projects">View Projects</a>
-            <a class="btn btn-secondary" href="resume.html">View Resume</a>
-          </div>
-        </div>
-
-        <aside class="spatial-console" aria-label="Portfolio system map">
-          <div class="console-plane plane-main">
-            <div class="panel-header">
-              <span class="status-dot" aria-hidden="true"></span>
-              <span>Portfolio Network</span>
-              <small>LIVE / 2026</small>
-            </div>
-            <div class="console-layout">
-              <div class="system-map" aria-label="Focus areas">
-                <div class="map-root"><span>JC</span><small>CORE</small></div>
-                <div class="map-node node-one"><span>WEB</span><small>Frontend</small></div>
-                <div class="map-node node-two"><span>AI</span><small>Automation</small></div>
-                <div class="map-node node-three"><span>DB</span><small>Data</small></div>
-                <div class="map-node node-four"><span>I/O</span><small>Embedded</small></div>
-                <i class="map-line line-one" aria-hidden="true"></i>
-                <i class="map-line line-two" aria-hidden="true"></i>
-                <i class="map-line line-three" aria-hidden="true"></i>
-                <i class="map-line line-four" aria-hidden="true"></i>
-              </div>
-              <div class="console-stats">
-                <div class="dial"><span>92</span><small>Build focus</small></div>
-                <div class="dial"><span>04</span><small>Core tracks</small></div>
-                <div class="signal-bars" aria-label="System activity"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-              </div>
-            </div>
-            <div class="metrics-grid">
-              <div>
-                <strong data-count-projects>6+</strong>
-                <span>Featured builds</span>
-              </div>
-              <div>
-                <strong data-count-skills>4</strong>
-                <span>Skill clusters</span>
-              </div>
-              <div>
-                <strong data-count-certificates>0</strong>
-                <span>Certificates</span>
-              </div>
-              <div>
-                <strong class="online-label">Online</strong>
-                <span>Site status</span>
-              </div>
-            </div>
-          </div>
-          <div class="console-plane plane-back" aria-hidden="true"></div>
-          <div class="console-plane plane-floor" aria-hidden="true"></div>
-        </aside>
-      </div>
     </header>
 
     <main id="main">
-      <section class="section container" id="about">
-        <div class="split-section">
-          <div class="section-heading">
-            <p class="eyebrow">01 / Profile</p>
-            <h2>A practical builder with a systems-thinking mindset</h2>
-          </div>
-          <div class="content-stack">
-            <p>
-              My work spans AI-powered production planning, WhatsApp bots, Supabase business
-              systems, WordPress SEO builds, and RFID or ESP32 prototypes. I like projects where
-              software has to connect with real workflows, real data, or real devices.
-            </p>
-            <p>
-              This portfolio is connected to a Supabase-backed content system for deployed,
-              persistent project updates.
-            </p>
-          </div>
-        </div>
-
-        <div class="space-carousel" data-carousel>
-          <div class="carousel-controls" aria-label="Profile card controls">
-            <button class="carousel-button" type="button" data-slide-prev aria-label="Previous profile card">←</button>
-            <button class="carousel-button" type="button" data-slide-next aria-label="Next profile card">→</button>
-          </div>
-          <div class="focus-grid depth-row space-track" data-slide-track aria-label="Portfolio focus areas">
-          <article tabindex="0" role="button" data-modal-card data-modal-kicker="Profile focus" data-modal-title="Full-stack systems" data-modal-description="Dashboards, APIs, authentication flows, databases, and usable interfaces." data-modal-details="I build connected web systems where the interface, data model, and backend workflow support a real use case from end to end.">
-            <span>01</span>
-            <h3>Full-stack systems</h3>
-            <p>Dashboards, APIs, authentication flows, databases, and usable interfaces.</p>
-          </article>
-          <article tabindex="0" role="button" data-modal-card data-modal-kicker="Profile focus" data-modal-title="AI automation" data-modal-description="LLM-assisted workflows, chatbots, planning tools, and generated reports." data-modal-details="I use AI as a practical layer for turning messy requests into clearer steps, useful summaries, generated plans, and repeatable workflows.">
-            <span>02</span>
-            <h3>AI automation</h3>
-            <p>LLM-assisted workflows, chatbots, planning tools, and generated reports.</p>
-          </article>
-          <article tabindex="0" role="button" data-modal-card data-modal-kicker="Profile focus" data-modal-title="Embedded prototypes" data-modal-description="ESP32, RFID, serial communication, sensors, and hardware troubleshooting." data-modal-details="I prototype with hardware modules, serial output, sensor signals, and step-by-step debugging so physical systems become easier to test and explain.">
-            <span>03</span>
-            <h3>Embedded prototypes</h3>
-            <p>ESP32, RFID, serial communication, sensors, and hardware troubleshooting.</p>
-          </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section section-alt spatial-band" id="skills">
-        <div class="container">
-          <div class="section-heading narrow">
-            <p class="eyebrow">02 / Capability Network</p>
-            <h2>Skills built through project work, not just coursework</h2>
-          </div>
-
-          <div class="space-carousel" data-carousel>
-            <div class="carousel-controls" aria-label="Capability card controls">
-              <button class="carousel-button" type="button" data-slide-prev aria-label="Previous capability card">←</button>
-              <button class="carousel-button" type="button" data-slide-next aria-label="Next capability card">→</button>
+      <section class="hero" id="home" aria-labelledby="heroTitle">
+        <div class="hero-bg" aria-hidden="true"></div>
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <div class="hero-status">
+              <span class="avatar avatar-sm" data-profile-photo aria-hidden="true">JD</span>
+              <span class="status-pill"><span class="status-dot"></span><span data-bind="profile.availability">Open to opportunities</span></span>
             </div>
-            <div class="skills-grid depth-grid space-track" id="skillsGrid" data-slide-track aria-live="polite"></div>
-          </div>
-          <div class="stack-matrix" id="stackMatrix" aria-label="Grouped technology stack"></div>
-        </div>
-      </section>
-
-      <section class="section container" id="featured">
-        <div class="section-heading narrow">
-          <p class="eyebrow">03 / Featured Build</p>
-          <h2>A closer look at the project that best represents the system</h2>
-        </div>
-        <div class="featured-project depth-card" id="featuredProject" aria-live="polite"></div>
-      </section>
-
-      <section class="section container" id="projects">
-        <div class="section-heading project-heading">
-          <p class="eyebrow">04 / Project Infrastructure</p>
-          <h2>Selected work across software, automation, data, and hardware</h2>
-        </div>
-
-        <div class="project-tools">
-          <label>Search projects<input id="projectSearch" type="search" placeholder="Search by title, stack, or category" /></label>
-          <div class="project-filters" id="projectFilters" aria-label="Filter projects">
-            <button class="filter-button is-active" type="button" data-filter="all">All systems</button>
-          </div>
-        </div>
-
-        <div class="space-carousel" data-carousel>
-          <div class="carousel-controls" aria-label="Project card controls">
-            <button class="carousel-button" type="button" data-slide-prev aria-label="Previous project card">←</button>
-            <button class="carousel-button" type="button" data-slide-next aria-label="Next project card">→</button>
-          </div>
-          <div class="projects-grid depth-grid space-track" id="projectsGrid" data-slide-track aria-live="polite"></div>
-        </div>
-      </section>
-
-      <section class="section section-alt" id="experience">
-        <div class="container">
-          <div class="section-heading narrow">
-            <p class="eyebrow">05 / Activity Log</p>
-            <h2>Experience and education timeline</h2>
-          </div>
-          <div class="timeline" id="timelineGrid" aria-live="polite"></div>
-        </div>
-      </section>
-
-      <section class="section section-alt" id="certificates">
-        <div class="container">
-          <div class="section-heading narrow">
-            <p class="eyebrow">06 / Credentials</p>
-            <h2>Credentials, training, and recognitions</h2>
-          </div>
-
-          <div class="certificate-grid depth-row" id="certificatesGrid" aria-live="polite"></div>
-        </div>
-      </section>
-
-      <section class="section container" id="strengths">
-        <div class="section-heading narrow">
-          <p class="eyebrow">07 / Operating Traits</p>
-          <h2>What I bring to a project</h2>
-        </div>
-
-        <div class="strengths-grid">
-          <article class="pill">Problem-solving</article>
-          <article class="pill">Initiative</article>
-          <article class="pill">Fast learner</article>
-          <article class="pill">Persistence</article>
-          <article class="pill">Systems thinking</article>
-          <article class="pill">Communication</article>
-          <article class="pill">Organization</article>
-          <article class="pill">Adaptability</article>
-          <article class="pill">User-focused thinking</article>
-        </div>
-      </section>
-
-      <section class="section section-alt" id="resume-preview">
-        <div class="container resume-preview depth-card">
-          <div>
-            <p class="eyebrow">08 / Resume Snapshot</p>
-            <h2>Quick scan before opening the full résumé</h2>
-            <p>Computer Engineering student focused on full-stack systems, AI-assisted workflows, databases, and practical connected hardware.</p>
-          </div>
-          <div class="resume-preview-grid">
-            <article><span>Education</span><strong>BS Computer Engineering</strong></article>
-            <article><span>Current Focus</span><strong>Web, AI, data, embedded systems</strong></article>
-            <article><span>Working Style</span><strong>Build, test, document, improve</strong></article>
-          </div>
-          <div class="admin-actions"><a class="btn btn-primary" href="resume.html">Open Resume</a><a class="btn btn-outline" href="#contact">Contact Me</a></div>
-        </div>
-      </section>
-
-      <section class="section contact-section" id="contact">
-        <div class="container contact-card depth-card">
-          <div>
-            <p class="eyebrow">09 / Open Channel</p>
-            <h2>Available for internships, collaborations, and practical builds</h2>
-            <p>
-              I’m interested in opportunities that combine software development, AI automation,
-              backend systems, hardware prototyping, and real-world problem solving.
+            <h1 id="heroTitle" class="hero-title" data-bind="profile.name">Joseph Clyde S. Daño</h1>
+            <p class="hero-headline" data-hero-headline>Software Developer <span>•</span> Systems Builder <span>•</span> Computer Engineer</p>
+            <p class="hero-intro" data-hero-intro>
+              I develop practical software solutions, automate workflows, and build systems that connect technology with real-world needs. My work spans full-stack web development, backend services, AI integrations, and embedded systems.
             </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#projects">Explore My Work<i class="icon" data-icon="arrow-right"></i></a>
+              <a class="btn btn-ghost" href="#contact">Get In Touch</a>
+            </div>
+            <div class="hero-meta">
+              <ul class="social-links" data-socials aria-label="Profiles"></ul>
+              <ul class="tag-row" data-hero-tags aria-label="Core technologies"></ul>
+            </div>
           </div>
-          <form class="contact-form" id="contactForm">
+
+          <div class="editor" data-editor aria-label="Developer profile shown as code">
+            <div class="editor-bar">
+              <span class="editor-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <div class="editor-tabs" role="tablist" aria-label="Editor files">
+                <button class="editor-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="editorPane" data-editor-tab="profile">profile.ts</button>
+                <button class="editor-tab" type="button" role="tab" aria-selected="false" aria-controls="editorPane" data-editor-tab="contact" tabindex="-1">contact.json</button>
+              </div>
+            </div>
+            <div class="editor-body" id="editorPane" role="tabpanel" tabindex="0">
+              <pre class="editor-code"><code data-editor-code></code></pre>
+            </div>
+            <div class="editor-status" aria-hidden="true">
+              <span><span class="status-dot"></span>main</span>
+              <span data-editor-lang>TypeScript</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="about" aria-labelledby="aboutTitle">
+        <div class="container">
+          <header class="section-head reveal">
+            <p class="section-index">01 <span>/</span> About</p>
+            <h2 id="aboutTitle">Building software that holds up in the real world.</h2>
+          </header>
+          <div class="about-grid">
+            <div class="about-copy reveal" data-about-copy></div>
+            <aside class="about-card reveal" aria-label="Profile summary">
+              <figure class="portrait" data-portrait>
+                <span class="portrait-fallback" aria-hidden="true">JD</span>
+              </figure>
+              <dl class="facts" data-about-facts></dl>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-alt" id="experience" aria-labelledby="experienceTitle">
+        <div class="container">
+          <header class="section-head reveal">
+            <p class="section-index">02 <span>/</span> Experience</p>
+            <h2 id="experienceTitle">Where I've worked.</h2>
+            <p class="section-lead">Technical and non-technical roles that shaped how I build, communicate, and work with teams.</p>
+          </header>
+          <ol class="timeline" data-timeline></ol>
+          <div class="certs" data-certificates hidden></div>
+        </div>
+      </section>
+
+      <section class="section" id="projects" aria-labelledby="projectsTitle">
+        <div class="container">
+          <header class="section-head section-head-row reveal">
+            <div>
+              <p class="section-index">03 <span>/</span> Projects</p>
+              <h2 id="projectsTitle">Selected work.</h2>
+              <p class="section-lead">Software, automation, and hardware projects — from production dashboards to microcontrollers and logic gates.</p>
+            </div>
+            <div class="filter-tabs" role="group" aria-label="Filter projects" data-project-filters></div>
+          </header>
+          <div class="featured-list" data-featured-projects></div>
+          <div class="project-grid" data-projects></div>
+          <div class="more-builds" data-more-wrap>
+            <h3 class="subhead">More builds</h3>
+            <ul class="build-list" data-more-projects></ul>
+          </div>
+          <p class="empty-filter" data-empty-filter hidden>No projects in this category yet.</p>
+        </div>
+      </section>
+
+      <section class="section section-alt" id="stack" aria-labelledby="stackTitle">
+        <div class="container">
+          <header class="section-head section-head-row reveal">
+            <div>
+              <p class="section-index">04 <span>/</span> Tech Stack</p>
+              <h2 id="stackTitle">Tools I work with.</h2>
+            </div>
+            <div class="filter-tabs" role="tablist" aria-label="Technology categories" data-stack-tabs></div>
+          </header>
+          <div class="stack-panels" data-stack-panels></div>
+        </div>
+      </section>
+
+      <section class="section contact" id="contact" aria-labelledby="contactTitle">
+        <div class="container contact-grid">
+          <div class="contact-copy reveal">
+            <p class="section-index">05 <span>/</span> Contact</p>
+            <h2 id="contactTitle">Have a project in mind?</h2>
+            <p class="section-lead">I'm open to discussing opportunities, collaborations, development projects, and interesting technical challenges.</p>
+            <ul class="contact-list" data-contact-list></ul>
+            <div class="contact-actions">
+              <a class="btn btn-primary" href="resume.html" data-resume-link><i class="icon" data-icon="download"></i>Download Resume</a>
+              <ul class="social-links" data-socials aria-label="Profiles"></ul>
+            </div>
+          </div>
+
+          <form class="contact-form reveal" id="contactForm" hidden>
+            <h3 class="subhead">Send a message</h3>
             <label class="honeypot" aria-hidden="true">Website<input id="contactWebsite" type="text" tabindex="-1" autocomplete="off" /></label>
-            <div class="form-row compact-row">
+            <div class="form-row">
               <label>Name<input id="contactName" type="text" autocomplete="name" required /></label>
               <label>Email<input id="contactEmail" type="email" autocomplete="email" required /></label>
             </div>
             <label>Subject<input id="contactSubject" type="text" maxlength="180" /></label>
-            <label>Message<textarea id="contactMessage" rows="4" maxlength="5000" required></textarea></label>
-            <div class="turnstile-slot" id="turnstileWidget" hidden aria-live="polite"></div>
-            <div class="contact-actions">
-              <button class="btn btn-primary" type="submit">Send Message</button>
-              <a class="btn btn-outline" href="resume.html">View Résumé</a>
-            </div>
+            <label>Message<textarea id="contactMessage" rows="5" maxlength="5000" required></textarea></label>
+            <div class="turnstile-slot" id="turnstileWidget" hidden></div>
+            <button class="btn btn-primary" type="submit">Send Message<i class="icon" data-icon="arrow-right"></i></button>
             <p class="form-status" id="contactStatus" role="status"></p>
-            <p class="privacy-note">By sending a message, you agree to the limited processing described in the <a href="privacy.html">privacy notice</a>.</p>
+            <p class="fine-print">Messages are handled as described in the <a href="privacy.html">privacy notice</a>.</p>
           </form>
         </div>
       </section>
     </main>
 
-    <footer class="footer">
-      <div class="container">
-        <span>Joseph Clyde Daño</span>
-        <span class="footer-links"><a href="resume.html">Résumé</a><a href="privacy.html">Privacy</a><a href="security.html">Security</a><a data-social="github" hidden>GitHub</a><a data-social="linkedin" hidden>LinkedIn</a><span>© <span data-year></span></span></span>
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <span>© <span data-year>2026</span> Joseph Clyde S. Daño</span>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="resume.html">Resume</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="security.html">Security</a>
+        </nav>
       </div>
     </footer>
 
-    <div class="detail-modal" id="detailModal" hidden>
-      <div class="detail-modal-backdrop" data-modal-close></div>
-      <section class="detail-modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDescription">
-        <button class="modal-close" type="button" data-modal-close aria-label="Close details">×</button>
-        <p class="eyebrow" id="modalKicker">Details</p>
-        <h2 id="modalTitle"></h2>
-        <p id="modalDescription"></p>
-        <div class="modal-detail" id="modalDetail"></div>
-        <div class="modal-tags" id="modalTags"></div>
-        <a class="text-link" id="modalLink" hidden>Open case study</a>
-      </section>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.2"></script>
-    <script src="supabase-config.js"></script>
-    <script src="security.js"></script>
-    <script src="portfolio-data.js"></script>
-    <script src="portfolio-view.js"></script>
-    <script src="contact.js"></script>
-    <script src="site.js"></script>
+    <button class="back-to-top icon-btn" type="button" data-back-to-top aria-label="Back to top" hidden><i class="icon" data-icon="arrow-up"></i></button>
+    <div class="toast" role="status" aria-live="polite" data-toast></div>
   </body>
 </html>

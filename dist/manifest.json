@@ -1,9 +1,10 @@
 {
-  "name": "Joseph Clyde Daño Portfolio",
-  "short_name": "JC Portfolio",
+  "name": "Joseph Clyde S. Daño — Software Developer",
+  "short_name": "JD Portfolio",
   "start_url": "index.html",
   "display": "standalone",
-  "background_color": "#080908",
-  "theme_color": "#080908",
-  "description": "Systems portfolio covering full-stack development, AI automation, databases, and embedded systems."
+  "background_color": "#09090b",
+  "theme_color": "#09090b",
+  "description": "Software developer portfolio covering full-stack web development, backend services, AI integrations, and embedded systems.",
+  "icons": [{ "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml" }]
 }

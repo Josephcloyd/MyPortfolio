@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-label="Illustration: an HR dashboard with employee records, a leave calendar, and request statuses">
+  <defs>
+    <pattern id="g" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#1b1b20"/></pattern>
+    <radialGradient id="glow" cx="50%" cy="35%" r="65%"><stop offset="0" stop-color="#a3e635" stop-opacity=".11"/><stop offset="1" stop-color="#a3e635" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="#0d0d10"/>
+  <rect width="1600" height="1000" fill="url(#g)"/>
+  <rect width="1600" height="1000" fill="url(#glow)"/>
+  <g font-family="ui-monospace, Menlo, Consolas, monospace">
+    <rect x="140" y="120" width="1320" height="760" rx="18" fill="#141417" stroke="#2a2a2f" stroke-width="2"/>
+    <path d="M140 138a18 18 0 0 1 18-18h1284a18 18 0 0 1 18 18v38H140z" fill="#18181b"/>
+    <circle cx="176" cy="148" r="7" fill="#3f3f46"/><circle cx="200" cy="148" r="7" fill="#3f3f46"/><circle cx="224" cy="148" r="7" fill="#3f3f46"/>
+    <text x="270" y="154" fill="#a1a1aa" font-size="16">hr / employees</text>
+    <!-- Sidebar -->
+    <rect x="160" y="196" width="190" height="664" rx="10" fill="#18181b" stroke="#26262b"/>
+    <g fill="#3f3f46"><rect x="182" y="226" width="100" height="14" rx="7" fill="#a3e635"/><rect x="182" y="270" width="130" height="12" rx="6"/><rect x="182" y="306" width="110" height="12" rx="6"/><rect x="182" y="342" width="140" height="12" rx="6"/><rect x="182" y="378" width="96" height="12" rx="6"/><rect x="182" y="414" width="120" height="12" rx="6"/></g>
+    <!-- Employee table -->
+    <rect x="380" y="196" width="640" height="664" rx="12" fill="#18181b" stroke="#26262b"/>
+    <text x="406" y="240" fill="#f4f4f5" font-size="24" font-weight="700" font-family="ui-sans-serif, system-ui, sans-serif">Employees</text>
+    <line x1="380" y1="270" x2="1020" y2="270" stroke="#26262b"/>
+    <g>
+      <circle cx="424" cy="316" r="20" fill="#3f3f46"/><rect x="460" y="306" width="170" height="12" rx="6" fill="#a1a1aa"/><rect x="460" y="326" width="110" height="10" rx="5" fill="#52525b"/><rect x="880" y="302" width="110" height="28" rx="14" fill="#a3e635" fill-opacity=".18" stroke="#a3e635" stroke-opacity=".6"/>
+      <circle cx="424" cy="396" r="20" fill="#3f3f46"/><rect x="460" y="386" width="140" height="12" rx="6" fill="#a1a1aa"/><rect x="460" y="406" width="120" height="10" rx="5" fill="#52525b"/><rect x="880" y="382" width="110" height="28" rx="14" fill="#27272a" stroke="#3f3f46"/>
+      <circle cx="424" cy="476" r="20" fill="#3f3f46"/><rect x="460" y="466" width="190" height="12" rx="6" fill="#a1a1aa"/><rect x="460" y="486" width="90" height="10" rx="5" fill="#52525b"/><rect x="880" y="462" width="110" height="28" rx="14" fill="#a3e635" fill-opacity=".18" stroke="#a3e635" stroke-opacity=".6"/>
+      <circle cx="424" cy="556" r="20" fill="#3f3f46"/><rect x="460" y="546" width="160" height="12" rx="6" fill="#a1a1aa"/><rect x="460" y="566" width="130" height="10" rx="5" fill="#52525b"/><rect x="880" y="542" width="110" height="28" rx="14" fill="#27272a" stroke="#3f3f46"/>
+      <circle cx="424" cy="636" r="20" fill="#3f3f46"/><rect x="460" y="626" width="150" height="12" rx="6" fill="#a1a1aa"/><rect x="460" y="646" width="100" height="10" rx="5" fill="#52525b"/><rect x="880" y="622" width="110" height="28" rx="14" fill="#a3e635" fill-opacity=".18" stroke="#a3e635" stroke-opacity=".6"/>
+      <circle cx="424" cy="716" r="20" fill="#3f3f46"/><rect x="460" y="706" width="180" height="12" rx="6" fill="#a1a1aa"/><rect x="460" y="726" width="80" height="10" rx="5" fill="#52525b"/><rect x="880" y="702" width="110" height="28" rx="14" fill="#27272a" stroke="#3f3f46"/>
+    </g>
+    <g stroke="#232328"><line x1="400" y1="356" x2="1000" y2="356"/><line x1="400" y1="436" x2="1000" y2="436"/><line x1="400" y1="516" x2="1000" y2="516"/><line x1="400" y1="596" x2="1000" y2="596"/><line x1="400" y1="676" x2="1000" y2="676"/></g>
+    <!-- Leave calendar -->
+    <rect x="1050" y="196" width="390" height="370" rx="12" fill="#18181b" stroke="#26262b"/>
+    <text x="1076" y="240" fill="#a1a1aa" font-size="18">leave calendar</text>
+    <g fill="#232328">
+      <rect x="1076" y="266" width="42" height="42" rx="6"/><rect x="1126" y="266" width="42" height="42" rx="6"/><rect x="1176" y="266" width="42" height="42" rx="6" fill="#a3e635"/><rect x="1226" y="266" width="42" height="42" rx="6" fill="#a3e635"/><rect x="1276" y="266" width="42" height="42" rx="6"/><rect x="1326" y="266" width="42" height="42" rx="6"/><rect x="1376" y="266" width="42" height="42" rx="6"/>
+      <rect x="1076" y="316" width="42" height="42" rx="6"/><rect x="1126" y="316" width="42" height="42" rx="6"/><rect x="1176" y="316" width="42" height="42" rx="6"/><rect x="1226" y="316" width="42" height="42" rx="6"/><rect x="1276" y="316" width="42" height="42" rx="6" fill="#a3e635" fill-opacity=".5"/><rect x="1326" y="316" width="42" height="42" rx="6"/><rect x="1376" y="316" width="42" height="42" rx="6"/>
+      <rect x="1076" y="366" width="42" height="42" rx="6"/><rect x="1126" y="366" width="42" height="42" rx="6" fill="#a3e635" fill-opacity=".5"/><rect x="1176" y="366" width="42" height="42" rx="6"/><rect x="1226" y="366" width="42" height="42" rx="6"/><rect x="1276" y="366" width="42" height="42" rx="6"/><rect x="1326" y="366" width="42" height="42" rx="6"/><rect x="1376" y="366" width="42" height="42" rx="6"/>
+      <rect x="1076" y="416" width="42" height="42" rx="6"/><rect x="1126" y="416" width="42" height="42" rx="6"/><rect x="1176" y="416" width="42" height="42" rx="6"/><rect x="1226" y="416" width="42" height="42" rx="6"/><rect x="1276" y="416" width="42" height="42" rx="6"/><rect x="1326" y="416" width="42" height="42" rx="6" fill="#a3e635"/><rect x="1376" y="416" width="42" height="42" rx="6"/>
+      <rect x="1076" y="466" width="42" height="42" rx="6"/><rect x="1126" y="466" width="42" height="42" rx="6"/><rect x="1176" y="466" width="42" height="42" rx="6"/><rect x="1226" y="466" width="42" height="42" rx="6"/><rect x="1276" y="466" width="42" height="42" rx="6"/>
+    </g>
+    <!-- Files -->
+    <rect x="1050" y="590" width="390" height="270" rx="12" fill="#18181b" stroke="#26262b"/>
+    <text x="1076" y="634" fill="#a1a1aa" font-size="18">documents</text>
+    <g><path d="M1076 664h56l16 16v60h-72z" fill="#27272a" stroke="#3f3f46"/><path d="M1176 664h56l16 16v60h-72z" fill="#27272a" stroke="#3f3f46"/><path d="M1276 664h56l16 16v60h-72z" fill="#a3e635" fill-opacity=".2" stroke="#a3e635"/></g>
+    <rect x="1076" y="770" width="300" height="12" rx="6" fill="#3f3f46"/><rect x="1076" y="800" width="220" height="12" rx="6" fill="#3f3f46"/>
+  </g>
+</svg>

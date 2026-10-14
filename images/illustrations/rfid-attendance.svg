@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-label="Illustration: an RFID card tapped on a reader connected to a microcontroller that logs attendance">
+  <defs>
+    <pattern id="g" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#1b1b20"/></pattern>
+    <radialGradient id="glow" cx="35%" cy="45%" r="60%"><stop offset="0" stop-color="#a3e635" stop-opacity=".12"/><stop offset="1" stop-color="#a3e635" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="#0d0d10"/>
+  <rect width="1600" height="1000" fill="url(#g)"/>
+  <rect width="1600" height="1000" fill="url(#glow)"/>
+  <g font-family="ui-monospace, Menlo, Consolas, monospace">
+    <!-- Reader -->
+    <rect x="200" y="420" width="380" height="300" rx="20" fill="#141417" stroke="#3f3f46" stroke-width="3"/>
+    <circle cx="390" cy="570" r="90" fill="none" stroke="#a3e635" stroke-width="3" stroke-opacity=".7"/>
+    <circle cx="390" cy="570" r="60" fill="none" stroke="#a3e635" stroke-width="3" stroke-opacity=".4"/>
+    <circle cx="390" cy="570" r="10" fill="#a3e635"/>
+    <text x="226" y="460" fill="#71717a" font-size="18">reader</text>
+    <!-- Card -->
+    <g transform="rotate(-14 390 300)">
+      <rect x="270" y="200" width="250" height="158" rx="16" fill="#a3e635"/>
+      <rect x="300" y="246" width="50" height="40" rx="6" fill="#0d0d10" fill-opacity=".85"/>
+      <rect x="300" y="310" width="160" height="12" rx="6" fill="#0d0d10" fill-opacity=".5"/>
+    </g>
+    <g fill="none" stroke="#a3e635" stroke-linecap="round" stroke-width="4" stroke-opacity=".6"><path d="M370 400q20 -14 40 0"/><path d="M355 382q35 -24 70 0"/></g>
+    <!-- Wire + board -->
+    <path d="M580 570h120" stroke="#a3e635" stroke-width="3" stroke-dasharray="10 8"/>
+    <rect x="700" y="480" width="200" height="180" rx="14" fill="#141417" stroke="#3f3f46" stroke-width="3"/>
+    <rect x="750" y="530" width="100" height="80" rx="8" fill="#27272a" stroke="#52525b" stroke-width="2"/>
+    <text x="768" y="578" fill="#a3e635" font-size="20" font-weight="700">MCU</text>
+    <path d="M900 570h100" stroke="#71717a" stroke-width="3" stroke-dasharray="10 8"/>
+    <!-- Attendance log -->
+    <rect x="1000" y="250" width="420" height="500" rx="18" fill="#141417" stroke="#2a2a2f" stroke-width="2"/>
+    <text x="1030" y="300" fill="#f4f4f5" font-size="22" font-weight="700" font-family="ui-sans-serif, system-ui, sans-serif">Attendance</text>
+    <g>
+      <circle cx="1048" cy="356" r="16" fill="#a3e635" fill-opacity=".18" stroke="#a3e635"/><path d="M1040 356l6 6 11-12" fill="none" stroke="#a3e635" stroke-width="3"/><rect x="1080" y="350" width="170" height="12" rx="6" fill="#a1a1aa"/><rect x="1320" y="350" width="70" height="12" rx="6" fill="#52525b"/>
+      <circle cx="1048" cy="426" r="16" fill="#a3e635" fill-opacity=".18" stroke="#a3e635"/><path d="M1040 426l6 6 11-12" fill="none" stroke="#a3e635" stroke-width="3"/><rect x="1080" y="420" width="140" height="12" rx="6" fill="#a1a1aa"/><rect x="1320" y="420" width="70" height="12" rx="6" fill="#52525b"/>
+      <circle cx="1048" cy="496" r="16" fill="#a3e635" fill-opacity=".18" stroke="#a3e635"/><path d="M1040 496l6 6 11-12" fill="none" stroke="#a3e635" stroke-width="3"/><rect x="1080" y="490" width="190" height="12" rx="6" fill="#a1a1aa"/><rect x="1320" y="490" width="70" height="12" rx="6" fill="#52525b"/>
+      <circle cx="1048" cy="566" r="16" fill="none" stroke="#3f3f46"/><rect x="1080" y="560" width="150" height="12" rx="6" fill="#52525b"/><rect x="1320" y="560" width="70" height="12" rx="6" fill="#3f3f46"/>
+      <circle cx="1048" cy="636" r="16" fill="none" stroke="#3f3f46"/><rect x="1080" y="630" width="170" height="12" rx="6" fill="#52525b"/><rect x="1320" y="630" width="70" height="12" rx="6" fill="#3f3f46"/>
+    </g>
+  </g>
+</svg>
