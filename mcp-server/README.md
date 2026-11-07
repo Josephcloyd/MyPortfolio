@@ -1,105 +1,64 @@
-# Joseph Clyde's Portfolio - Model Context Protocol (MCP) Server
+# Portfolio MCP server
 
-This directory contains a standalone **Model Context Protocol (MCP) Server** for Joseph Clyde's portfolio. It allows AI models (Gemini, Claude, Cursor, Windsurf, ChatGPT desktop, etc.) to query projects, skills, education, and technical experience using standard MCP **Tools** and **Resources**.
+A [Model Context Protocol](https://modelcontextprotocol.io) server that lets AI assistants (Claude, Cursor, VS Code Copilot, Windsurf, Gemini) answer questions about Joseph Clyde S. Daño's projects, skills, and experience.
 
----
+It reads the website's own `../content.js`, so assistants always see exactly what the portfolio shows. Edit `content.js` and the next tool call picks up the change; no restart needed.
 
-## 🌟 Features
-
-- **Standard MCP SDK**: Built on `@modelcontextprotocol/sdk` (Stdio transport).
-- **Hybrid Data Source**:
-  - **Live Supabase Sync**: Connects to the Supabase `portfolio_items` table if `PORTFOLIO_SUPABASE_URL` and `PORTFOLIO_SUPABASE_ANON_KEY` are provided.
-  - **Zero-Config Fallback**: Automatically falls back to offline portfolio data if database credentials are not present.
-- **5 MCP Resources**:
-  - `portfolio://overview`: Bio, developer role, and summary stats.
-  - `portfolio://projects`: Comprehensive list of portfolio projects.
-  - `portfolio://skills`: Technical skill breakdown (Web, AI, Data, IoT).
-  - `portfolio://resume`: Education and experience timeline.
-  - `portfolio://items`: Raw JSON dataset of all items.
-- **6 MCP Tools**:
-  - `get_portfolio_overview`: Summary overview of developer background.
-  - `list_projects`: Filter projects by category, tag, or featured status.
-  - `get_project_details`: Detailed info for a specific project (challenge, solution, outcome).
-  - `search_skills`: Search skills by domain or keyword.
-  - `get_resume`: Retrieve experience and education entries.
-  - `query_portfolio`: Free-text search across all portfolio fields.
-
----
-
-## 🚀 Setup & Installation
-
-### 1. Install Dependencies
-
-Open a terminal in the `mcp-server` directory and run:
+## Setup
 
 ```bash
+cd mcp-server
 npm install
 ```
 
----
+Optional settings go in `mcp-server/.env` (see `.env.example`):
 
-## ⚙️ How to Connect to AI Clients
+| Variable | Purpose |
+| --- | --- |
+| `PORTFOLIO_SITE_URL` | Adds case-study links to project results. |
+| `PORTFOLIO_SUPABASE_URL`, `PORTFOLIO_SUPABASE_ANON_KEY` | Adds certificates managed in `admin.html`. |
+| `PORTFOLIO_CONTENT_FILE` | Reads a different content file. |
 
-### 1. Antigravity / Gemini IDE
+## Tools
 
-Add the following entry to your `mcp_config.json` or MCP settings in Antigravity / Gemini IDE:
+| Tool | What it returns |
+| --- | --- |
+| `get_portfolio_overview` | Name, role, bio, contact links, and summary stats. |
+| `list_projects` | Projects, filterable by category, technology, or featured status. |
+| `get_project_details` | Full case study for one project (by id or title keyword). |
+| `search_skills` | Tech stack groups, filterable by group or keyword. |
+| `get_resume` | Experience and education entries. |
+| `query_portfolio` | Free-text search across everything. |
 
-```json
-{
-  "mcpServers": {
-    "jc-portfolio": {
-      "command": "node",
-      "args": [
-        "C:/Users/Joseph Clyde/OneDrive/Desktop/Cloy's/Cloy's Project/Portfolio/mcp-server/index.js"
-      ],
-      "env": {
-        "PORTFOLIO_SUPABASE_URL": "",
-        "PORTFOLIO_SUPABASE_ANON_KEY": ""
-      }
-    }
-  }
-}
-```
+Resources: `portfolio://overview`, `portfolio://projects`, `portfolio://skills`, `portfolio://resume`, `portfolio://items`.
 
----
+## Connect an AI client
 
-### 2. Claude Desktop
+**VS Code and Cursor** are already configured for this repository in `.vscode/mcp.json` and `.cursor/mcp.json`. Open the project folder and enable the `jc-portfolio` server.
 
-Add the following to your `claude_desktop_config.json`:
-
-- **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
-- **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+**Claude Desktop** — add to `claude_desktop_config.json` (`%APPDATA%\Claude\` on Windows), using the absolute path to this folder:
 
 ```json
 {
   "mcpServers": {
     "jc-portfolio": {
       "command": "node",
-      "args": [
-        "C:/Users/Joseph Clyde/OneDrive/Desktop/Cloy's/Cloy's Project/Portfolio/mcp-server/index.js"
-      ]
+      "args": ["C:/path/to/MyPortfolio/mcp-server/index.js"]
     }
   }
 }
 ```
 
----
-
-### 3. Cursor / Windsurf
-
-In Cursor/Windsurf settings under **Features > MCP**:
-- **Name**: `jc-portfolio`
-- **Type**: `stdio`
-- **Command**: `node "C:/Users/Joseph Clyde/OneDrive/Desktop/Cloy's/Cloy's Project/Portfolio/mcp-server/index.js"`
-
----
-
-## 🧪 Testing the MCP Server
-
-You can run the MCP server directly in stdio mode:
+**Claude Code** — from the repository root:
 
 ```bash
-npm start
+claude mcp add jc-portfolio -- node mcp-server/index.js
 ```
 
-Or test tool execution using standard JSON-RPC protocol requests.
+## Tests
+
+```bash
+node test-mcp.js         # data loading
+node test-mcp-tools.js   # tools over an in-memory transport
+node test-server.js      # stdio handshake
+```

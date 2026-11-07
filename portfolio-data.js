@@ -38,17 +38,39 @@
     return normalize({ id, type: "experience", title, category, subtitle, description, sort_order: sortOrder, published: true });
   }
 
+  const SUPABASE_SDK = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.2";
+  let sdkPromise = null;
+
   function hasSupabaseConfig() {
     const config = window.PORTFOLIO_SUPABASE || {};
-    return Boolean(config.url && config.anonKey && window.supabase);
+    return Boolean(config.url && config.anonKey);
   }
 
+  // Synchronous access for pages that load the SDK up front (admin.html).
   function client() {
-    if (!hasSupabaseConfig()) return null;
+    if (!hasSupabaseConfig() || !window.supabase) return null;
     if (!window.__portfolioSupabaseClient) {
       window.__portfolioSupabaseClient = window.supabase.createClient(window.PORTFOLIO_SUPABASE.url, window.PORTFOLIO_SUPABASE.anonKey);
     }
     return window.__portfolioSupabaseClient;
+  }
+
+  // Public pages load the SDK only when Supabase data is actually requested, so the first render never waits on it.
+  // Resolves to null (local mode) when Supabase is not configured or the SDK cannot be loaded.
+  function connect() {
+    if (!hasSupabaseConfig()) return Promise.resolve(null);
+    if (window.supabase) return Promise.resolve(client());
+    if (!sdkPromise) {
+      sdkPromise = new Promise((resolve) => {
+        const script = document.createElement("script");
+        script.src = SUPABASE_SDK;
+        script.async = true;
+        script.onload = () => resolve(client());
+        script.onerror = () => resolve(null);
+        document.head.appendChild(script);
+      });
+    }
+    return sdkPromise;
   }
 
   function clone(value) {
@@ -108,7 +130,7 @@
   }
 
   async function loadItems(options = {}) {
-    const sb = client();
+    const sb = await connect();
     let items;
     if (!sb) items = localItems();
     else {
@@ -128,7 +150,7 @@
 
   async function saveItem(itemValue) {
     const normalized = normalize(itemValue);
-    const sb = client();
+    const sb = await connect();
     if (!sb) {
       const next = localItems().filter((entry) => entry.id !== normalized.id);
       next.push(normalized);
@@ -142,7 +164,7 @@
   }
 
   async function deleteItem(id) {
-    const sb = client();
+    const sb = await connect();
     if (!sb) { saveLocalItems(localItems().filter((itemValue) => itemValue.id !== id)); return; }
     const { error } = await sb.from("portfolio_items").delete().eq("id", id);
     if (error) throw error;
@@ -151,7 +173,7 @@
   async function uploadMedia(file) {
     if (!file || !file.type.startsWith("image/")) throw new Error("Choose an image file first.");
     if (file.size > 5 * 1024 * 1024) throw new Error("Images must be smaller than 5 MB.");
-    const sb = client();
+    const sb = await connect();
     if (!sb) {
       if (file.size > 1.5 * 1024 * 1024) throw new Error("Local preview images must be smaller than 1.5 MB. Supabase mode supports up to 5 MB.");
       return fileToDataUrl(file);
@@ -176,7 +198,7 @@
   }
 
   async function seedStarterItems() {
-    const sb = client();
+    const sb = await connect();
     if (!sb) { saveLocalItems(clone(starterItems)); return clone(starterItems); }
     const { error } = await sb.from("portfolio_items").upsert(clone(starterItems));
     if (error) throw error;
@@ -192,7 +214,7 @@
     const validEmail = (security.email || ((value) => value))(message.email);
     const record = { id: cryptoId(), name: message.name.trim(), email: validEmail, subject: message.subject.trim(), message: message.message.trim(), status: "new", created_at: new Date().toISOString() };
     if (!record.name || !record.email || !record.message) throw new Error("Name, email, and message are required.");
-    const sb = client();
+    const sb = await connect();
     if (!sb) { localStorage.setItem(MESSAGE_KEY, JSON.stringify([record, ...localMessages()])); return record; }
     const { error } = await sb.functions.invoke("contact-submit", { body: { name: record.name, email: record.email, subject: record.subject, message: record.message, turnstileToken: message.turnstileToken || "" } });
     if (error) throw error;
@@ -200,7 +222,7 @@
   }
 
   async function loadMessages() {
-    const sb = client();
+    const sb = await connect();
     if (!sb) return localMessages();
     const { data, error } = await sb.from("contact_messages").select("*").order("created_at", { ascending: false });
     if (error) throw error;
@@ -208,7 +230,7 @@
   }
 
   async function setMessageStatus(id, status) {
-    const sb = client();
+    const sb = await connect();
     if (!sb) {
       localStorage.setItem(MESSAGE_KEY, JSON.stringify(localMessages().map((message) => message.id === id ? { ...message, status } : message)));
       return;
@@ -218,14 +240,14 @@
   }
 
   async function deleteMessage(id) {
-    const sb = client();
+    const sb = await connect();
     if (!sb) { localStorage.setItem(MESSAGE_KEY, JSON.stringify(localMessages().filter((message) => message.id !== id))); return; }
     const { error } = await sb.from("contact_messages").delete().eq("id", id);
     if (error) throw error;
   }
 
   async function loadAuditLog() {
-    const sb = client();
+    const sb = await connect();
     if (!sb) return [];
     const { data, error } = await sb.from("portfolio_audit_log").select("*").order("created_at", { ascending: false }).limit(30);
     if (error) throw error;
@@ -233,7 +255,7 @@
   }
 
   async function isAdminSession() {
-    const sb = client();
+    const sb = await connect();
     if (!sb) return true;
     const [{ data: access, error: accessError }, { data: assurance, error: assuranceError }] = await Promise.all([
       sb.rpc("is_portfolio_admin"),
@@ -243,5 +265,5 @@
     return Boolean(access && assurance.currentLevel === "aal2");
   }
 
-  window.PortfolioStore = { starterItems: clone(starterItems), hasSupabaseConfig, client, loadItems, loadItem, saveItem, deleteItem, uploadMedia, seedStarterItems, submitMessage, loadMessages, setMessageStatus, deleteMessage, loadAuditLog, isAdminSession, normalize, sortItems, isVisible };
+  window.PortfolioStore = { starterItems: clone(starterItems), hasSupabaseConfig, client, connect, loadItems, loadItem, saveItem, deleteItem, uploadMedia, seedStarterItems, submitMessage, loadMessages, setMessageStatus, deleteMessage, loadAuditLog, isAdminSession, normalize, sortItems, isVisible };
 })();

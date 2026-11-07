@@ -33,7 +33,7 @@ window.PORTFOLIO_CONTENT = {
   },
 
   contact: {
-    email: "Danojosephclyde@gmail.com",
+    email: "danojosephclyde@gmail.com",
     phone: "+639614013375",
     phoneDisplay: "+63 961 401 3375",
     location: "Cebu City, Philippines"
@@ -57,12 +57,6 @@ window.PORTFOLIO_CONTENT = {
       "I enjoy building applications that solve practical problems, designing systems that improve workflows, and exploring how software and hardware can work together.",
       "My experience includes full-stack development, database integration, AI-assisted automation, website deployment, and microcontroller-based projects.",
       "Beyond programming, I value effective communication, collaboration, continuous improvement, and building technology that is useful, maintainable, and reliable."
-    ],
-    facts: [
-      { label: "Based in", value: "Cebu City, Philippines" },
-      { label: "Field", value: "Computer Engineering" },
-      { label: "Focus", value: "Full-stack, backend, AI automation, embedded" },
-      { label: "Working style", value: "Build, test, document, improve" }
     ]
   },
 
@@ -224,6 +218,44 @@ window.PORTFOLIO_CONTENT = {
       gallery: [],
       repo: "",
       demo: ""
+    },
+    {
+      id: "project-vanessa-thomas",
+      featured: true,
+      title: "Vanessa & Thomas",
+      tagline: "Bilingual Wedding Invitation Website",
+      category: "Web · Event Website",
+      groups: ["software"],
+      status: "Live",
+      summary:
+        "A bilingual (English/German) wedding invitation website with a tap-to-open invitation, a live countdown, event details with directions, and RSVP.",
+      overview:
+        "Vanessa & Thomas is a wedding invitation website for a couple celebrating in Switzerland. Guests open a digital invitation, switch between English and German, and find everything they need for the day in one place: the ceremony and reception details, directions, the schedule, guest information, and an RSVP. The design follows the couple's dusty-blue and floral theme with a soft, romantic feel.",
+      // TODO: confirm the stack (Next.js is visible from the site's image URLs) and add hosting/other tools.
+      tech: ["Next.js", "Responsive Web Design", "Bilingual EN/DE"],
+      highlights: ["Tap-to-open invitation", "English / German toggle", "Live wedding countdown", "Event details with map directions", "RSVP"],
+      problem: "",
+      solution: "",
+      // TODO: add your responsibilities on this project (design, build, deployment, domain, etc.).
+      responsibilities: [],
+      architecture: [],
+      features: [
+        "Animated tap-to-open invitation cover",
+        "English and German language toggle",
+        "Live countdown to the wedding day",
+        "Ceremony and reception details with Google Maps directions",
+        "Day schedule and guest information (arrival, dress code, gifts)",
+        "One-tap copy for gift transfer details",
+        "RSVP section",
+        "Dusty-blue floral design with a custom monogram"
+      ],
+      challenges: [],
+      results: "",
+      lessons: "",
+      image: "images/vanessa-thomas.webp",
+      gallery: [],
+      repo: "",
+      demo: "https://vanessaandthomas.ch/"
     },
     {
       id: "project-pet-feeder",

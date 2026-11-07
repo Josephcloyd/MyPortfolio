@@ -1,12 +1,13 @@
 {
   "name": "jc-portfolio-mcp-server",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Model Context Protocol (MCP) server for Joseph Clyde's Portfolio",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "dev": "node index.js"
+    "dev": "node index.js",
+    "test": "node test-mcp.js && node test-mcp-tools.js && node test-server.js"
   },
   "keywords": [
     "mcp",

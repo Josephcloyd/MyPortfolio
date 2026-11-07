@@ -6,7 +6,7 @@ import { fetchPortfolioItems, fetchOverview } from "./data.js";
 // Initialize MCP Server
 const server = new McpServer({
   name: "jc-portfolio-mcp-server",
-  version: "1.0.0",
+  version: "2.0.0",
   description: "Exposes Joseph Clyde's Portfolio projects, skills, and resume data to AI assistants via Model Context Protocol."
 });
 
@@ -20,9 +20,18 @@ function formatItem(item) {
   if (item.subtitle) lines.push(`Subtitle: ${item.subtitle}`);
   if (item.description) lines.push(`Description: ${item.description}`);
   if (item.tags && item.tags.length) lines.push(`Tags: ${item.tags.join(", ")}`);
+  if (item.status) lines.push(`Status: ${item.status}`);
+  if (item.overview) lines.push(`Overview: ${item.overview}`);
   if (item.challenge) lines.push(`Challenge: ${item.challenge}`);
   if (item.solution) lines.push(`Solution: ${item.solution}`);
   if (item.outcome) lines.push(`Outcome: ${item.outcome}`);
+  if (item.responsibilities?.length) lines.push(`Responsibilities:\n${item.responsibilities.map((entry) => `- ${entry}`).join("\n")}`);
+  if (item.features?.length) lines.push(`Features:\n${item.features.map((entry) => `- ${entry}`).join("\n")}`);
+  if (item.challenges?.length) lines.push(`Challenges:\n${item.challenges.map((entry) => `- ${entry.challenge} -> ${entry.solution}`).join("\n")}`);
+  if (item.lessons) lines.push(`Lessons: ${item.lessons}`);
+  if (item.repo) lines.push(`Repository: ${item.repo}`);
+  if (item.url) lines.push(`Link: ${item.url}`);
+  if (item.case_study) lines.push(`Case study: ${item.case_study}`);
   return lines.join("\n");
 }
 
@@ -92,7 +101,7 @@ server.resource(
   "portfolio://resume",
   async (uri) => {
     const items = await fetchPortfolioItems();
-    const timeline = items.filter((i) => i.type === "experience");
+    const timeline = items.filter((i) => i.type === "experience" || i.type === "education");
     return {
       contents: [
         {
@@ -150,8 +159,8 @@ server.tool(
   "list_projects",
   "Filter and list portfolio projects by category, tag, or featured status.",
   {
-    category: z.string().optional().describe("Filter by category e.g. Full-stack, Automation, Supabase, WordPress, Embedded, Research"),
-    tag: z.string().optional().describe("Filter by technology tag e.g. Excel, AI planning, Bot, ESP32"),
+    category: z.string().optional().describe("Filter by category text e.g. Full-stack, AI, Web, Embedded, IoT, Digital Logic"),
+    tag: z.string().optional().describe("Filter by technology e.g. Next.js, Supabase, ExcelJS, ESP32"),
     featured_only: z.boolean().optional().describe("If true, only return featured showcase projects")
   },
   async ({ category, tag, featured_only }) => {
@@ -215,7 +224,7 @@ server.tool(
   "search_skills",
   "Search technical skills by category or technology keyword.",
   {
-    category: z.string().optional().describe("Category e.g. Web, AI, Data, IoT"),
+    category: z.string().optional().describe("Stack group e.g. Languages, Frontend, Backend, Databases, AI & Automation, Hardware & Embedded, Tools"),
     keyword: z.string().optional().describe("Keyword e.g. Python, Ollama, Supabase, ESP32, MCP")
   },
   async ({ category, keyword }) => {
@@ -256,7 +265,7 @@ server.tool(
   {},
   async () => {
     const items = await fetchPortfolioItems();
-    const timeline = items.filter((i) => i.type === "experience");
+    const timeline = items.filter((i) => i.type === "experience" || i.type === "education");
     const resultText = timeline.map(formatItem).join("\n\n---\n\n");
     return {
       content: [{ type: "text", text: resultText }]
@@ -284,7 +293,9 @@ server.tool(
         (i.tags || []).join(" "),
         i.challenge,
         i.solution,
-        i.outcome
+        i.outcome,
+        i.overview,
+        (i.features || []).join(" ")
       ]
         .filter(Boolean)
         .join(" ")

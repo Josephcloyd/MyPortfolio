@@ -17,7 +17,7 @@
 
   function setTheme(theme) {
     root.dataset.theme = theme;
-    document.querySelector('meta[name="theme-color"]')?.setAttribute("content", theme === "light" ? "#fafafa" : "#09090b");
+    document.querySelector('meta[name="theme-color"]')?.setAttribute("content", theme === "light" ? "#eeeeeb" : "#09090b");
     themeButtons.forEach((button) => {
       const isLight = theme === "light";
       button.setAttribute("aria-label", isLight ? "Switch to dark theme" : "Switch to light theme");
@@ -106,10 +106,27 @@
       if (entry.isIntersecting) { entry.target.classList.add("is-visible"); revealObserver.unobserve(entry.target); }
     }), { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
   }
-  const observeReveals = () => document.querySelectorAll(".reveal:not([data-reveal-wired])").forEach((node) => {
-    node.dataset.revealWired = "true";
-    if (revealObserver) revealObserver.observe(node); else node.classList.add("is-visible");
-  });
+  // With Motion loaded, siblings that reveal together (timeline items, tech groups, build rows)
+  // fade up one after another when their container scrolls into view. Without it, each element
+  // reveals on its own through the CSS transition above.
+  const motion = window.Motion && revealObserver ? window.Motion : null;
+  const REVEAL_STAGGER = 0.07;
+  const observeReveals = () => {
+    const fresh = [...document.querySelectorAll(".reveal:not([data-reveal-wired])")];
+    fresh.forEach((node) => { node.dataset.revealWired = "true"; });
+    if (!motion) {
+      fresh.forEach((node) => { if (revealObserver) revealObserver.observe(node); else node.classList.add("is-visible"); });
+      return;
+    }
+    const groups = new Map();
+    fresh.forEach((node) => groups.set(node.parentElement, [...(groups.get(node.parentElement) || []), node]));
+    groups.forEach((nodes, container) => {
+      const stop = motion.inView(container, () => {
+        stop();
+        motion.animate(nodes.filter((node) => !node.hidden), { opacity: [0, 1], transform: ["translateY(18px)", "none"] }, { delay: motion.stagger(REVEAL_STAGGER), duration: 0.6, ease: [0.2, 0.7, 0.2, 1] });
+      }, { amount: 0.1, margin: "0px 0px -40px 0px" });
+    });
+  };
   observeReveals();
   document.addEventListener("portfolio:rendered", observeReveals);
 

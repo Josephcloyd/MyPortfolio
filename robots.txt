@@ -1,5 +1,2 @@
 User-agent: *
 Disallow: /admin.html
-Disallow: /supabase-setup.sql
-Disallow: /DEPLOYMENT.md
-Disallow: /supabase/

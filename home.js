@@ -10,6 +10,8 @@
   let projects = (content.projects || []).map((project) => ({ ...project }));
   let moreProjects = (content.moreProjects || []).map((project) => ({ ...project }));
   let activeFilter = "all";
+  const carouselRoot = $("[data-carousel]");
+  const carousel = carouselRoot && window.PortfolioCarousel ? window.PortfolioCarousel.create(carouselRoot) : null;
 
   renderHero();
   renderEditor("profile");
@@ -18,11 +20,23 @@
   renderProjects();
   renderFilters();
   renderStack();
+  renderMarquee();
   renderContact();
   wireEditorTabs();
   document.dispatchEvent(new CustomEvent("portfolio:rendered"));
   restoreHash();
+  wireHeroDrift();
   loadRemote();
+
+  // The code panel drifts up slightly as the hero scrolls away (Motion, wide screens with a mouse only).
+  function wireHeroDrift() {
+    const motion = window.Motion;
+    const editor = $("[data-editor]");
+    const hero = $("#home");
+    if (!motion || !editor || !hero) return;
+    if (!matchMedia("(min-width: 1000px) and (pointer: fine) and (prefers-reduced-motion: no-preference)").matches) return;
+    motion.scroll(motion.animate(editor, { transform: ["translateY(0px)", "translateY(-56px)"] }, { ease: "linear" }), { target: hero, offset: ["start start", "end start"] });
+  }
 
   // Sections are rendered after the browser's initial anchor jump, so re-apply it once layout is final.
   function restoreHash() {
@@ -62,8 +76,17 @@
     if (!code) return;
     const lines = file === "contact" ? contactLines() : profileLines();
     code.innerHTML = lines.map((line) => `<span class="line">${line || " "}</span>`).join("");
+    const isContact = file === "contact";
     const lang = $("[data-editor-lang]");
-    if (lang) lang.textContent = file === "contact" ? "JSON" : "TypeScript";
+    if (lang) lang.textContent = isContact ? "JSON" : "TypeScript";
+    // Status bar and breadcrumb follow the open file, like VS Code.
+    const lastLine = code.lastElementChild?.textContent || "";
+    const pos = $("[data-editor-pos]");
+    if (pos) pos.textContent = `Ln ${lines.length}, Col ${lastLine.length + 1}`;
+    const crumbs = $("[data-editor-crumbs]");
+    if (crumbs) crumbs.innerHTML = isContact ? "contact.json" : "src <span>›</span> profile.ts <span>›</span> developer";
+    const terminal = $("[data-terminal-out]");
+    if (terminal) terminal.textContent = `✓ ${[profile.availability, contact.location].filter(Boolean).join(" · ")}`;
   }
 
   function profileLines() {
@@ -119,8 +142,6 @@
     const about = content.about || {};
     const copy = $("[data-about-copy]");
     if (copy) copy.innerHTML = (about.paragraphs || []).map((text, index) => `<p${index === 0 ? ' class="lead"' : ""}>${escapeHtml(text)}</p>`).join("");
-    const facts = $("[data-about-facts]");
-    if (facts) facts.innerHTML = (about.facts || []).map((fact) => `<div><dt>${escapeHtml(fact.label)}</dt><dd>${escapeHtml(fact.value)}</dd></div>`).join("");
     const portrait = $("[data-portrait]");
     if (portrait && profile.photo) { portrait.classList.add("has-photo"); portrait.innerHTML = `<img src="${escapeAttr(profile.photo)}" alt="${escapeAttr(profile.photoAlt || profile.name)}" width="800" height="1000" loading="lazy" decoding="async" />`; }
   }
@@ -150,40 +171,26 @@
   }
 
   /* Projects */
+  // Main projects go into the 3D carousel (carousel.js handles layout and input); smaller builds stay a list.
   function renderProjects() {
-    const featured = projects.filter((project) => project.featured);
-    const regular = projects.filter((project) => !project.featured);
-    const featuredRoot = $("[data-featured-projects]");
-    const gridRoot = $("[data-projects]");
+    const track = $("[data-carousel-track]");
     const moreRoot = $("[data-more-projects]");
 
-    if (featuredRoot) featuredRoot.innerHTML = featured.map((project, index) => `
-      <article class="featured reveal${index % 2 ? " is-reversed" : ""}" data-groups="${escapeAttr((project.groups || []).join(" "))}" aria-labelledby="${escapeAttr(project.id)}-title">
-        <a class="featured-media" href="${projectHref(project)}" tabindex="-1" aria-hidden="true">${media(project, "large")}</a>
-        <div class="featured-copy">
-          <p class="project-kicker"><span class="project-num">${pad(index + 1)}</span>${escapeHtml(project.category)}${statusBadge(project)}</p>
-          <h3 id="${escapeAttr(project.id)}-title"><a href="${projectHref(project)}">${escapeHtml(project.title)}</a></h3>
-          <p class="project-tagline">${escapeHtml(project.tagline)}</p>
-          <p>${escapeHtml(project.summary)}</p>
-          ${(project.highlights || []).length ? `<ul class="check-list">${project.highlights.map((item) => `<li>${icons.svg("check")}${escapeHtml(item)}</li>`).join("")}</ul>` : ""}
-          ${techList(project.tech)}
-          <div class="project-actions">
-            <a class="btn btn-ghost btn-sm" href="${projectHref(project)}">Case study ${icons.svg("arrow-right")}</a>
-            ${externalActions(project)}
+    if (track) track.innerHTML = projects.map((project, index) => `
+      <article class="slide" data-slide data-groups="${escapeAttr((project.groups || []).join(" "))}" aria-roledescription="slide" aria-labelledby="${escapeAttr(project.id)}-title">
+        <div class="slide-card">
+          <a class="slide-media" href="${projectHref(project)}" tabindex="-1" aria-hidden="true">${media(project, "large")}</a>
+          <div class="slide-body">
+            <p class="project-kicker"><span class="project-num">${pad(index + 1)}</span>${escapeHtml(project.category)}${statusBadge(project)}</p>
+            <h3 id="${escapeAttr(project.id)}-title"><a href="${projectHref(project)}">${escapeHtml(project.title)}</a></h3>
+            <p class="project-tagline">${escapeHtml(project.tagline)}</p>
+            <p class="slide-summary">${escapeHtml(project.summary)}</p>
+            ${techList((project.tech || []).slice(0, 5))}
+            <div class="project-actions">
+              <a class="btn btn-primary btn-sm" href="${projectHref(project)}">Case study ${icons.svg("arrow-right")}</a>
+              ${externalActions(project)}
+            </div>
           </div>
-        </div>
-      </article>`).join("");
-
-    if (gridRoot) gridRoot.innerHTML = regular.map((project, index) => `
-      <article class="project-card reveal" data-groups="${escapeAttr((project.groups || []).join(" "))}">
-        <div class="card-media">${media(project, "small")}</div>
-        <div class="card-body">
-          <p class="project-kicker"><span class="project-num">${pad(featured.length + index + 1)}</span>${escapeHtml(project.category)}${statusBadge(project)}</p>
-          <h3><a class="stretched-link" href="${projectHref(project)}">${escapeHtml(project.title)}</a></h3>
-          <p class="project-tagline">${escapeHtml(project.tagline)}</p>
-          <p class="card-summary">${escapeHtml(project.summary)}</p>
-          ${techList(project.tech)}
-          <span class="card-cta" aria-hidden="true">View case study ${icons.svg("arrow-up-right")}</span>
         </div>
       </article>`).join("");
 
@@ -229,6 +236,7 @@
     if (moreWrap) moreWrap.hidden = ![...moreWrap.querySelectorAll("[data-groups]")].some((node) => !node.hidden);
     const empty = $("[data-empty-filter]");
     if (empty) empty.hidden = visible > 0;
+    carousel?.refresh();
   }
 
   function media(project, size) {
@@ -305,12 +313,22 @@
     });
   }
 
+  /* Tech marquee: the stack as an endless strip (second copy is decorative, for a seamless loop). */
+  function renderMarquee() {
+    const root = $("[data-marquee]");
+    if (!root) return;
+    const items = (content.techStack || []).flatMap((group) => group.items || []);
+    const list = (hidden) => `<ul class="marquee-list"${hidden ? ' aria-hidden="true"' : ""}>${items.map((item) => `
+      <li>${item.icon ? icons.brand(item.icon) : `<span class="marquee-mono">${escapeHtml(item.mono || item.name.slice(0, 2))}</span>`}${escapeHtml(item.name)}</li>`).join("")}</ul>`;
+    root.innerHTML = list(false) + list(true);
+  }
+
   /* Contact */
   function renderContact() {
     const list = $("[data-contact-list]");
     if (!list) return;
     const rows = [];
-    if (contact.email) rows.push(`<li><span class="contact-icon">${icons.svg("mail")}</span><div><span class="contact-label">Email</span><a href="mailto:${escapeAttr(contact.email)}">${escapeHtml(contact.email)}</a></div><button class="copy-btn" type="button" data-copy="${escapeAttr(contact.email)}" aria-label="Copy email address">${icons.svg("copy")}<span>Copy</span></button></li>`);
+    if (contact.email) rows.push(`<li><span class="contact-icon">${icons.svg("mail")}</span><div><span class="contact-label">Email</span><a href="mailto:${escapeAttr(contact.email)}">${escapeHtml(contact.email).replace("@", "@<wbr>")}</a></div><button class="copy-btn" type="button" data-copy="${escapeAttr(contact.email)}" aria-label="Copy email address">${icons.svg("copy")}<span>Copy</span></button></li>`);
     if (contact.phone) rows.push(`<li><span class="contact-icon">${icons.svg("phone")}</span><div><span class="contact-label">Mobile</span><a href="tel:${escapeAttr(contact.phone)}">${escapeHtml(contact.phoneDisplay || contact.phone)}</a></div></li>`);
     if (contact.location) rows.push(`<li><span class="contact-icon">${icons.svg("map-pin")}</span><div><span class="contact-label">Location</span><span>${escapeHtml(contact.location)}</span></div></li>`);
     list.innerHTML = rows.join("");

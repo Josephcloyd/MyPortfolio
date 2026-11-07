@@ -4,7 +4,7 @@ window.PORTFOLIO_SUPABASE = {
 };
 
 window.PORTFOLIO_SITE = {
-  contactEmail: "Danojosephclyde@gmail.com",
+  contactEmail: "danojosephclyde@gmail.com",
   resumeUrl: "resume.html",
   githubUrl: "https://github.com/josephcloyd",
   linkedinUrl: "",

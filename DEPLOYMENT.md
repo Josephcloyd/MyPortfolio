@@ -78,13 +78,21 @@ Authorization: Bearer your-second-long-random-private-value
 
 ## 5. Deploy only the public package
 
-Do not upload the project folder directly. Build the clean deployment folder first:
+Never publish the project folder itself. The build creates a clean `dist` folder that excludes SQL, deployment notes, Edge Function source, scripts, and the MCP server:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\build.ps1
+npm run build          # or: powershell -ExecutionPolicy Bypass -File .\build.ps1
 ```
 
-Deploy the generated `dist` folder to Cloudflare Pages, Netlify, or Vercel. It includes browser security headers, a restrictive CSP, HSTS, no-cache admin headers, and excludes SQL, deployment notes, and Edge Function source.
+**Vercel (current host).** `vercel.json` tells Vercel to run `npm run build` and publish `dist`. In the Vercel project settings:
+
+1. **Build & Deployment:** Framework Preset `Other`, Root Directory empty (the repository root). Leave the build and output overrides off so `vercel.json` controls them.
+2. **Deployment Protection:** turn **Vercel Authentication** off for production, or set it to protect previews only. With it on, visitors see a Vercel login page instead of the portfolio.
+3. **Domains:** the build reads the production domain automatically for canonical URLs and the sitemap. Set `publicSiteUrl` in `supabase-config.js` only if you want to override it.
+
+**Netlify or Cloudflare Pages.** Use build command `npm run build` and publish directory `dist`. Security headers come from `_headers`.
+
+`dist` is build output and is not committed to git.
 
 ## 6. Schedule data retention
 
