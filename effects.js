@@ -129,6 +129,8 @@
     if (!code || reduced) return;
     timeLines(code);
     code.classList.add("is-typing");
+    code.closest(".editor-code")?.classList.add("is-typing"); // the <pre> the typing rules in effects.css target
+    code.closest(".editor")?.classList.add("is-typing"); // lets the terminal pane type after the code
   }
 
   function wireTyping() {

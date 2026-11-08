@@ -115,6 +115,9 @@ html:not(.has-scroll-progress) .scroll-progress { display: none; }
 .hero.is-pre .editor { opacity: 0; animation: intro-failsafe 0s linear 4.6s forwards; }
 .hero.is-pre .hero-title .word-inner { transform: translateY(105%); animation: intro-failsafe 0s linear 4.6s forwards; }
 @keyframes intro-failsafe { to { opacity: 1; transform: none; } }
+/* The code window's light frame and halo wait for the intro too, then fade in (styles.css transition). */
+.hero.is-pre .editor-wrap::before,
+.hero.is-pre .editor-wrap::after { opacity: 0; }
 
 /* Code panel typing ----------------------------------------------------------- */
 .editor-code.is-typing .line {
@@ -129,6 +132,16 @@ html:not(.has-scroll-progress) .scroll-progress { display: none; }
   animation: caret 1.05s linear var(--done, 0s) infinite;
 }
 @keyframes caret { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+
+/* Terminal pane: once the code has typed (--done is set on .editor), the command types after
+   the prompt (13 chars shown, 20 typed), then the reply fades in. */
+.editor.is-typing .term-cmd {
+  max-width: 34ch;
+  animation: term-type 0.9s steps(20, end) calc(var(--done, 0s) + 0.3s) both;
+}
+@keyframes term-type { from { max-width: 14ch; } }
+.editor.is-typing .term-out { animation: term-reply 0.35s var(--ease) calc(var(--done, 0s) + 1.35s) both; }
+@keyframes term-reply { from { opacity: 0; transform: translateY(3px); } }
 
 /* Tech marquee --------------------------------------------------------------- */
 .marquee {

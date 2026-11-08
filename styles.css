@@ -349,7 +349,6 @@ h2 { font-size: clamp(2rem, 4.2vw, 2.75rem); font-weight: 650; line-height: 1.1;
 @property --beam-angle { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
 .editor-wrap {
   position: relative; min-width: 0; padding: 1px; border-radius: 14px;
-  background: var(--border);
   transform: perspective(1400px) rotateX(var(--erx, 0deg)) rotateY(var(--ery, 0deg));
   transition: transform 0.4s var(--ease);
 }
@@ -357,8 +356,19 @@ h2 { font-size: clamp(2rem, 4.2vw, 2.75rem); font-weight: 650; line-height: 1.1;
   content: ""; position: absolute; border-radius: inherit; pointer-events: none;
   background: conic-gradient(from var(--beam-angle), transparent 0deg 250deg, color-mix(in srgb, var(--accent) 85%, transparent) 320deg, transparent 360deg);
   animation: beam-spin 8s linear infinite;
+  transition: opacity 0.8s var(--ease);
 }
-.editor-wrap::before { inset: 0; }
+/* The frame: a static 1px border plus the travelling light, masked to a ring so nothing shows behind the window. */
+.editor-wrap::before {
+  inset: 0; padding: 1px;
+  background:
+    conic-gradient(from var(--beam-angle), transparent 0deg 250deg, color-mix(in srgb, var(--accent) 85%, transparent) 320deg, transparent 360deg),
+    var(--border);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+}
+/* The halo: a soft blurred glow following the light, behind the window. */
 .editor-wrap::after { inset: 8px; z-index: -1; filter: blur(26px); opacity: 0.45; }
 @keyframes beam-spin { to { --beam-angle: 360deg; } }
 @media (prefers-reduced-motion: reduce) { .editor-wrap::before, .editor-wrap::after { animation: none; } }
@@ -431,7 +441,11 @@ h2 { font-size: clamp(2rem, 4.2vw, 2.75rem); font-weight: 650; line-height: 1.1;
 .tok-punc { color: var(--tok-punc); }
 .tok-comment { color: var(--tok-comment); font-style: italic; }
 /* The line holding the cursor is highlighted, as in VS Code. */
-.editor-code .line:last-child { background: color-mix(in srgb, var(--text) 5%, transparent); }
+/* border-image outset paints the band to the right edge without changing the line's width
+   (lines are width-limited while typing) or adding scrollable overflow. */
+.editor-code .line:last-child {
+  border-image: linear-gradient(color-mix(in srgb, var(--text) 5%, transparent), color-mix(in srgb, var(--text) 5%, transparent)) fill 0 / 0 / 0 100vw 0 0;
+}
 
 /* Integrated terminal (effects.css types the command once the code has finished) */
 .editor-terminal { padding: 0 16px 12px; border-top: 1px solid var(--border); background: color-mix(in srgb, var(--bg-2) 55%, var(--surface)); font-family: var(--mono); font-size: 0.75rem; }
@@ -452,8 +466,11 @@ h2 { font-size: clamp(2rem, 4.2vw, 2.75rem); font-weight: 650; line-height: 1.1;
 .editor-status .icon { width: 12px; height: 12px; }
 .editor-status .status-spacer { flex: 1; }
 @media (max-width: 520px) {
-  .editor-activity, .status-optional, .editor-title { display: none; }
+  .editor-activity, .editor-title, .editor-status > .status-optional, .editor-status > [data-editor-pos] { display: none; }
   .editor-bar { grid-template-columns: auto; }
+  .editor-code { font-size: 0.75rem; }
+  .editor-status { gap: 10px; }
+  .term-out { white-space: normal; } /* let the reply wrap; the command still types on one line */
 }
 
 /* About ------------------------------------------------------------------ */
