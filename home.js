@@ -3,6 +3,9 @@
   const content = window.PORTFOLIO_CONTENT;
   if (!content) return;
   const icons = window.PortfolioIcons || { svg: () => "", brand: () => "" };
+  // Section markup lives in templates.js, shared with the build so the same HTML is pre-rendered for crawlers.
+  const T = window.PortfolioTemplates;
+  if (!T) return;
   const $ = (selector) => document.querySelector(selector);
   const profile = content.profile || {};
   const contact = content.contact || {};
@@ -21,6 +24,7 @@
   renderFilters();
   renderStack();
   renderMarquee();
+  renderFaq();
   renderContact();
   wireEditorTabs();
   document.dispatchEvent(new CustomEvent("portfolio:rendered"));
@@ -62,10 +66,10 @@
       intro.innerHTML = html;
     }
     const tags = $("[data-hero-tags]");
-    if (tags) tags.innerHTML = (profile.heroTags || []).map((tag) => `<li>${escapeHtml(tag)}</li>`).join("");
+    if (tags) tags.innerHTML = T.heroTags(profile);
     document.querySelectorAll("[data-profile-photo]").forEach((node) => {
       const avatar = profile.avatar || profile.photo;
-      if (avatar) node.innerHTML = `<img src="${escapeAttr(avatar)}" alt="" width="40" height="40" decoding="async" />`;
+      if (avatar) node.innerHTML = `<img src="${escapeAttr(avatar)}" alt="${escapeAttr(`Profile photo of ${profile.name}`)}" width="40" height="40" decoding="async" />`;
       else node.textContent = profile.monogram || "JD";
     });
   }
@@ -141,7 +145,7 @@
   function renderAbout() {
     const about = content.about || {};
     const copy = $("[data-about-copy]");
-    if (copy) copy.innerHTML = (about.paragraphs || []).map((text, index) => `<p${index === 0 ? ' class="lead"' : ""}>${escapeHtml(text)}</p>`).join("");
+    if (copy) copy.innerHTML = T.aboutCopy(about);
     const portrait = $("[data-portrait]");
     if (portrait && profile.photo) { portrait.classList.add("has-photo"); portrait.innerHTML = `<img src="${escapeAttr(profile.photo)}" alt="${escapeAttr(profile.photoAlt || profile.name)}" width="800" height="1000" loading="lazy" decoding="async" />`; }
   }
@@ -151,21 +155,7 @@
     const root = $("[data-timeline]");
     if (!root) return;
     const wide = matchMedia("(min-width: 760px)");
-    root.innerHTML = (content.experience || []).map((job, index) => {
-      const related = job.relatedProject && projects.find((project) => project.id === job.relatedProject);
-      const duties = (job.responsibilities || []).length
-        ? `<details class="duties"${index === 0 || wide.matches ? " open" : ""}><summary>Responsibilities ${icons.svg("chevron-down")}</summary><ul>${job.responsibilities.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></details>`
-        : "";
-      return `<li class="timeline-item reveal">
-        <div class="timeline-when"><time>${escapeHtml(job.period)}</time>${job.type ? `<span class="badge">${escapeHtml(job.type)}</span>` : ""}</div>
-        <div class="timeline-body">
-          <h3>${escapeHtml(job.company)}</h3>
-          ${job.role ? `<p class="timeline-role">${escapeHtml(job.role)}</p>` : ""}
-          ${duties}
-          ${related ? `<a class="text-link" href="${projectHref(related)}">Related project: ${escapeHtml(related.title)} ${icons.svg("arrow-right")}</a>` : ""}
-        </div>
-      </li>`;
-    }).join("");
+    root.innerHTML = T.timeline(content.experience, projects, { expandAll: wide.matches });
     // The toggle is hidden on wide screens, so keep every list expanded there.
     wide.addEventListener("change", (event) => { if (event.matches) root.querySelectorAll("details.duties").forEach((node) => { node.open = true; }); });
   }
@@ -176,32 +166,8 @@
     const track = $("[data-carousel-track]");
     const moreRoot = $("[data-more-projects]");
 
-    if (track) track.innerHTML = projects.map((project, index) => `
-      <article class="slide" data-slide data-groups="${escapeAttr((project.groups || []).join(" "))}" aria-roledescription="slide" aria-labelledby="${escapeAttr(project.id)}-title">
-        <div class="slide-card">
-          <a class="slide-media" href="${projectHref(project)}" tabindex="-1" aria-hidden="true">${media(project, "large")}</a>
-          <div class="slide-body">
-            <p class="project-kicker"><span class="project-num">${pad(index + 1)}</span>${escapeHtml(project.category)}${statusBadge(project)}</p>
-            <h3 id="${escapeAttr(project.id)}-title"><a href="${projectHref(project)}">${escapeHtml(project.title)}</a></h3>
-            <p class="project-tagline">${escapeHtml(project.tagline)}</p>
-            <p class="slide-summary">${escapeHtml(project.summary)}</p>
-            ${techList((project.tech || []).slice(0, 5))}
-            <div class="project-actions">
-              <a class="btn btn-primary btn-sm" href="${projectHref(project)}">Case study ${icons.svg("arrow-right")}</a>
-              ${externalActions(project)}
-            </div>
-          </div>
-        </div>
-      </article>`).join("");
-
-    if (moreRoot) moreRoot.innerHTML = moreProjects.map((project) => `
-      <li class="build-row reveal" data-groups="${escapeAttr((project.groups || []).join(" "))}">
-        <a href="${projectHref(project)}">
-          <span class="build-title">${escapeHtml(project.title)}<small>${escapeHtml(project.tagline || project.category)}</small></span>
-          <span class="build-tech">${(project.tech || []).slice(0, 3).map(escapeHtml).join(" · ")}</span>
-          ${icons.svg("arrow-up-right")}
-        </a>
-      </li>`).join("");
+    if (track) track.innerHTML = T.projectSlides(projects);
+    if (moreRoot) moreRoot.innerHTML = T.moreProjects(moreProjects);
 
     applyFilter();
   }
@@ -209,9 +175,7 @@
   function renderFilters() {
     const root = $("[data-project-filters]");
     if (!root) return;
-    const all = [...projects, ...moreProjects];
-    const filters = (content.projectFilters || []).filter((filter) => filter.id === "all" || all.some((project) => (project.groups || []).includes(filter.id)));
-    root.innerHTML = filters.map((filter) => `<button class="filter-btn${filter.id === activeFilter ? " is-active" : ""}" type="button" aria-pressed="${filter.id === activeFilter}" data-filter="${escapeAttr(filter.id)}">${escapeHtml(filter.label)}</button>`).join("");
+    root.innerHTML = T.projectFilters(content.projectFilters, [...projects, ...moreProjects], activeFilter);
     root.addEventListener("click", (event) => {
       const button = event.target.closest("[data-filter]");
       if (!button) return;
@@ -239,65 +203,13 @@
     carousel?.refresh();
   }
 
-  function media(project, size) {
-    const image = project.image || (project.gallery || [])[0];
-    const groups = project.groups || [];
-    const kind = groups.includes("logic") ? "logic" : groups.includes("embedded") ? "board" : "browser";
-    const chrome = `<div class="ph-chrome"><i></i><i></i><i></i><span>${escapeHtml(frameLabel(project))}</span></div>`;
-    if (image) {
-      const img = `<img src="${escapeAttr(image)}" alt="${escapeAttr(`${project.title} — ${project.tagline || "screenshot"}`)}" loading="lazy" decoding="async" width="1600" height="865" />`;
-      return kind === "browser" ? `<div class="shot">${chrome}${img}</div>` : img;
-    }
-    if (project.illustration) return illustration(project);
-    return `<div class="placeholder placeholder-${kind} placeholder-${size}">
-      ${kind === "browser" ? chrome : ""}
-      <div class="ph-art" aria-hidden="true">${placeholderArt(kind)}</div>
-      <span class="ph-label">${icons.svg("image")}Screenshots coming soon</span>
-    </div>`;
-  }
-
-  function placeholderArt(kind) {
-    if (kind === "board") return `<span class="chip"><b>MCU</b></span><span class="trace t1"></span><span class="trace t2"></span><span class="trace t3"></span>`;
-    if (kind === "logic") return `<span class="bits">A 1011<br>B 0110<br><b>= 10001</b></span>`;
-    return `<span class="ph-side"></span><span class="ph-lines"><i></i><i></i><i></i><i></i></span>`;
-  }
-
-  // Concept artwork, clearly labelled so it is never mistaken for a real screenshot.
-  function illustration(project) {
-    return `<div class="illus"><img src="${escapeAttr(project.illustration)}" alt="${escapeAttr(`Illustration of ${project.title}`)}" loading="lazy" decoding="async" width="1600" height="1000" /><span class="illus-label">Illustration</span></div>`;
-  }
-
-  function frameLabel(project) {
-    try { if (project.demo) return new URL(project.demo).hostname.replace(/^www\./, ""); } catch (error) { /* Fall back to the title. */ }
-    return project.title.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-  }
-
-  function statusBadge(project) { return project.status ? `<span class="badge">${escapeHtml(project.status)}</span>` : ""; }
-  function techList(tech) { return (tech || []).length ? `<ul class="tech-tags" aria-label="Technologies">${tech.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>` : ""; }
-  function externalActions(project) {
-    return [
-      project.repo ? `<a class="btn btn-ghost btn-sm" href="${escapeAttr(project.repo)}" target="_blank" rel="noopener noreferrer">${icons.svg("github")}Code</a>` : "",
-      project.demo ? `<a class="btn btn-ghost btn-sm" href="${escapeAttr(project.demo)}" target="_blank" rel="noopener noreferrer">${icons.svg("arrow-up-right")}Live demo</a>` : ""
-    ].join("");
-  }
-
   /* Tech stack */
   function renderStack() {
     const tabs = $("[data-stack-tabs]");
     const panels = $("[data-stack-panels]");
     if (!tabs || !panels) return;
-    const groups = content.techStack || [];
-    tabs.innerHTML = [{ id: "all", label: "All" }, ...groups].map((group, index) => `<button class="filter-btn${index === 0 ? " is-active" : ""}" type="button" aria-pressed="${index === 0}" data-stack="${escapeAttr(group.id)}">${escapeHtml(group.label)}</button>`).join("");
-    panels.innerHTML = groups.map((group) => `
-      <section class="stack-group reveal" data-stack-group="${escapeAttr(group.id)}" aria-label="${escapeAttr(group.label)}">
-        <h3>${escapeHtml(group.label)}</h3>
-        <ul class="tech-grid">${group.items.map((item) => `
-          <li class="tech-tile" tabindex="0" data-tooltip="${escapeAttr(item.name)}">
-            <span class="tech-icon">${item.icon ? icons.brand(item.icon) : `<span class="tech-mono">${escapeHtml(item.mono || item.name.slice(0, 2))}</span>`}</span>
-            <span class="tech-name">${escapeHtml(item.name)}</span>
-          </li>`).join("")}
-        </ul>
-      </section>`).join("");
+    tabs.innerHTML = T.stackTabs(content.techStack);
+    panels.innerHTML = T.stackPanels(content.techStack);
     tabs.addEventListener("click", (event) => {
       const button = event.target.closest("[data-stack]");
       if (!button) return;
@@ -317,21 +229,20 @@
   function renderMarquee() {
     const root = $("[data-marquee]");
     if (!root) return;
-    const items = (content.techStack || []).flatMap((group) => group.items || []);
-    const list = (hidden) => `<ul class="marquee-list"${hidden ? ' aria-hidden="true"' : ""}>${items.map((item) => `
-      <li>${item.icon ? icons.brand(item.icon) : `<span class="marquee-mono">${escapeHtml(item.mono || item.name.slice(0, 2))}</span>`}${escapeHtml(item.name)}</li>`).join("")}</ul>`;
-    root.innerHTML = list(false) + list(true);
+    root.innerHTML = T.marquee(content.techStack);
+  }
+
+  /* FAQ (also pre-rendered at build, with matching FAQPage JSON-LD) */
+  function renderFaq() {
+    const root = $("[data-faq]");
+    if (root) root.innerHTML = T.faq(content.faq);
   }
 
   /* Contact */
   function renderContact() {
     const list = $("[data-contact-list]");
     if (!list) return;
-    const rows = [];
-    if (contact.email) rows.push(`<li><span class="contact-icon">${icons.svg("mail")}</span><div><span class="contact-label">Email</span><a href="mailto:${escapeAttr(contact.email)}">${escapeHtml(contact.email).replace("@", "@<wbr>")}</a></div><button class="copy-btn" type="button" data-copy="${escapeAttr(contact.email)}" aria-label="Copy email address">${icons.svg("copy")}<span>Copy</span></button></li>`);
-    if (contact.phone) rows.push(`<li><span class="contact-icon">${icons.svg("phone")}</span><div><span class="contact-label">Mobile</span><a href="tel:${escapeAttr(contact.phone)}">${escapeHtml(contact.phoneDisplay || contact.phone)}</a></div></li>`);
-    if (contact.location) rows.push(`<li><span class="contact-icon">${icons.svg("map-pin")}</span><div><span class="contact-label">Location</span><span>${escapeHtml(contact.location)}</span></div></li>`);
-    list.innerHTML = rows.join("");
+    list.innerHTML = T.contactList(contact);
   }
 
   /* Supabase overlay: uploaded media, live URLs, certificates. */
@@ -369,12 +280,10 @@
   }
 
   /* Helpers */
-  function projectHref(project) { return `project.html?id=${encodeURIComponent(project.id)}`; }
   function t(kind, value) { return `<span class="tok-${kind}">${escapeHtml(value)}</span>`; }
   function p(value) { return t("punc", value); }
   function str(value) { return t("str", `"${value}"`); }
   function stripProtocol(url) { return url ? String(url).replace(/^https?:\/\//, "").replace(/\/$/, "") : ""; }
-  function pad(value) { return String(value).padStart(2, "0"); }
   function escapeHtml(value) { return String(value ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;"); }
   function escapeAttr(value) { return escapeHtml(value).replaceAll("`", "&#096;"); }
 })();

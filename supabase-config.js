@@ -10,5 +10,5 @@ window.PORTFOLIO_SITE = {
   linkedinUrl: "",
   analyticsId: "",
   turnstileSiteKey: "",
-  publicSiteUrl: ""
+  publicSiteUrl: "https://josephclyde.getlaunchph.com"
 };

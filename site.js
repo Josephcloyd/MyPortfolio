@@ -37,7 +37,7 @@
 
   const socials = socialLinks();
   document.querySelectorAll("[data-socials]").forEach((list) => {
-    list.innerHTML = socials.map((entry) => `<li><a class="icon-btn" href="${escapeAttr(entry.href)}" aria-label="${escapeAttr(entry.label)}" title="${escapeAttr(entry.label)}"${entry.external ? ' target="_blank" rel="noopener noreferrer"' : ""}>${icons ? icons.svg(entry.icon) : escapeHtml(entry.label)}</a></li>`).join("");
+    list.innerHTML = socials.map((entry) => `<li><a class="icon-btn" href="${escapeAttr(entry.href)}" aria-label="${escapeAttr(entry.label)}" title="${escapeAttr(entry.label)}"${entry.external ? ' target="_blank" rel="me noopener noreferrer"' : ""}>${icons ? icons.svg(entry.icon) : escapeHtml(entry.label)}</a></li>`).join("");
   });
 
   function socialLinks() {

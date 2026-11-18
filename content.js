@@ -14,6 +14,8 @@
 window.PORTFOLIO_CONTENT = {
   profile: {
     name: "Joseph Clyde S. Daño",
+    // Other spellings people search for; used in the Person schema (alternateName) and llms.txt.
+    alternateNames: ["Joseph Clyde Daño", "Joseph Clyde Dano", "Joseph Clyde S. Dano"],
     shortName: "Joseph Clyde",
     monogram: "JD",
     headline: ["Software Developer", "Systems Builder", "Computer Engineer"],
@@ -614,5 +616,36 @@ window.PORTFOLIO_CONTENT = {
   /* Shown on resume.html only. */
   education: [
     { title: "BS Computer Engineering", place: "University of Cebu – Main Campus", note: "In progress" }
+  ],
+
+  /*
+   * FAQ shown on the home page ("About Joseph Clyde S. Daño"). The same entries generate the
+   * FAQPage JSON-LD at build time, so the visible answers and the structured data always match.
+   */
+  faq: [
+    {
+      question: "Who is Joseph Clyde S. Daño?",
+      answer: "Joseph Clyde S. Daño (also written Joseph Clyde Dano) is a software developer and systems builder based in Cebu City, Philippines, with a background in Computer Engineering. He builds practical software across full-stack web development, backend services, AI integrations, and embedded systems."
+    },
+    {
+      question: "What does Joseph Clyde Daño do?",
+      answer: "He develops web applications and backend services, automates workflows with AI-assisted tools, deploys and maintains websites, and builds microcontroller-based projects. His work covers dashboards, APIs, database integration, and hardware-software integration."
+    },
+    {
+      question: "What projects has Joseph Clyde Daño worked on?",
+      answer: "His projects include LifePlan, an AI-assisted production planning system built during his internship at Lifewood Data Technology; Canoy Law, a professional legal services website; Vanessa & Thomas, a bilingual wedding invitation website; and embedded projects such as an automated pet feeder, an ESP32 + RFID system, and an arithmetic logic unit designed in CircuitVerse."
+    },
+    {
+      question: "What technologies does Joseph Clyde Daño use?",
+      answer: "He works with TypeScript, JavaScript, Python, PHP, and SQL; React and Next.js; Node.js, Express.js, and REST APIs; Supabase and PostgreSQL; AI tools such as MCP, Ollama, and OpenClaw; and hardware including ESP32, ESP32-CAM, and RFID."
+    },
+    {
+      question: "What work experience does Joseph Clyde Daño have?",
+      answer: "He was an IT and AI Executive Intern at Lifewood Data Technology from May to August 2026, contributing to an automated production planning system, backend services, dashboards, and databases. He also worked as a Technical Support Representative at Aldesa in 2024 and as Service Crew at McDonald's in 2025."
+    },
+    {
+      question: "Where is Joseph Clyde Daño based, and how can I contact him?",
+      answer: "He is based in Cebu City, Philippines, and is open to opportunities, collaborations, and development projects. You can reach him by email at Danojosephclyde@gmail.com."
+    }
   ]
 };

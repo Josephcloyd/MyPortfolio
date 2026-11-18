@@ -13,7 +13,8 @@
   transition: visibility 0s linear 1.1s;
   animation: loader-failsafe 0s linear 4.8s forwards;
 }
-.skip-loader .loader { display: none; }
+.skip-loader .loader,
+html:not(.js) .loader { display: none; } /* no JavaScript (or a crawler): show the page straight away */
 .loader.is-done { visibility: hidden; pointer-events: none; }
 @keyframes loader-failsafe { to { opacity: 0; visibility: hidden; } }
 

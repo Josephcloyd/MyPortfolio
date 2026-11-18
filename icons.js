@@ -47,5 +47,5 @@
   }
 
   window.PortfolioIcons = { svg, brand, hydrate };
-  hydrate();
+  if (typeof document !== "undefined") hydrate(); // skipped when the build runs this file in Node
 })();

@@ -601,6 +601,12 @@ h2 { font-size: clamp(2rem, 4.2vw, 2.75rem); font-weight: 650; line-height: 1.1;
 .slide.is-active { cursor: auto; }
 .slide.is-hidden { visibility: hidden; pointer-events: none; }
 
+/* Without JavaScript the ring cannot be arranged, so the pre-rendered cards fall back to a plain grid. */
+html:not(.js) .carousel-viewport { margin-inline: 0; overflow: visible; perspective: none; -webkit-mask-image: none; mask-image: none; }
+html:not(.js) .carousel-track { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 20px; height: auto; }
+html:not(.js) .slide { position: relative; top: auto; left: auto; width: auto; margin-left: 0; }
+html:not(.js) .carousel-arrow { display: none; }
+
 /* Prev / next arrows, floating over the ring's left and right edges */
 .carousel-arrow {
   position: absolute; top: 42%; z-index: 5;
@@ -826,6 +832,20 @@ h2 { font-size: clamp(2rem, 4.2vw, 2.75rem); font-weight: 650; line-height: 1.1;
 .form-status { color: var(--text-2); font-size: 0.875rem; }
 .fine-print { color: var(--text-3); font-size: 0.75rem; }
 .fine-print a { text-decoration: underline; text-underline-offset: 2px; }
+
+/* FAQ -------------------------------------------------------------------- */
+.faq-list { max-width: 860px; border-top: 1px solid var(--border); }
+.faq-item { border-bottom: 1px solid var(--border); }
+.faq-item summary {
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  padding: 22px 4px; list-style: none; cursor: pointer;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary h3 { margin: 0; font-size: clamp(1.0625rem, 2vw, 1.1875rem); font-weight: 600; letter-spacing: -0.01em; line-height: 1.4; }
+.faq-item summary .icon { flex: none; color: var(--text-3); transition: transform 0.25s var(--ease), color 0.2s var(--ease); }
+.faq-item summary:hover h3 { color: var(--accent-text); }
+.faq-item[open] summary .icon { transform: rotate(180deg); color: var(--accent-text); }
+.faq-item p { max-width: 720px; margin: 0; padding: 0 4px 24px; color: var(--text-2); line-height: 1.75; }
 
 /* Footer / utilities ----------------------------------------------------- */
 .site-footer { border-top: 1px solid var(--border); padding: 28px 0; color: var(--text-3); font-size: 0.875rem; }
