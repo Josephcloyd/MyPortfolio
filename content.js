@@ -43,8 +43,8 @@ window.PORTFOLIO_CONTENT = {
 
   socials: {
     github: "https://github.com/josephcloyd",
-    // TODO: add your LinkedIn profile URL. Hidden until set.
-    linkedin: ""
+    linkedin: "https://www.linkedin.com/in/joseph-clyde-da%C3%B1o-8069a9417/",
+    facebook: "https://www.facebook.com/josephcloyd"
   },
 
   resume: {

@@ -45,9 +45,11 @@
     const links = [];
     const github = safe((content.socials || {}).github || config.githubUrl);
     const linkedin = safe((content.socials || {}).linkedin || config.linkedinUrl);
+    const facebook = safe((content.socials || {}).facebook);
     const email = (content.contact || {}).email || config.contactEmail;
     if (github) links.push({ href: github, label: "GitHub", icon: "github", external: true });
     if (linkedin) links.push({ href: linkedin, label: "LinkedIn", icon: "linkedin", external: true });
+    if (facebook) links.push({ href: facebook, label: "Facebook", icon: "facebook", external: true });
     if (email) links.push({ href: `mailto:${email}`, label: `Email ${email}`, icon: "mail" });
     return links;
   }
