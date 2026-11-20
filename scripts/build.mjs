@@ -16,7 +16,7 @@ const out = path.resolve(root, args.out || "dist");
 
 const publicFiles = [
   "index.html", "admin.html", "project.html", "resume.html", "privacy.html", "security.html", "404.html",
-  "styles.css", "effects.css", "admin.css", "favicon.svg", "og.png", "manifest.json", "_headers", "robots.txt", "vercel.json",
+  "styles.css", "effects.css", "admin.css", "favicon.svg", "favicon.ico", "og.png", "manifest.json", "_headers", "robots.txt", "vercel.json",
   "theme-init.js", "content.js", "brand-icons.js", "icons.js", "templates.js", "site.js", "carousel.js", "home.js", "tech-sphere.js", "effects.js", "project-view.js", "resume.js", "contact.js",
   "supabase-config.js", "security.js", "portfolio-data.js", "admin.js"
 ];
@@ -140,7 +140,9 @@ function websiteSchema() {
   return {
     "@type": "WebSite",
     ...(siteUrl ? { "@id": `${siteUrl}/#website`, url: `${siteUrl}/` } : {}),
-    name: `${(content.profile || {}).name} — Portfolio`,
+    // Short, plain name: Google uses it for the site name shown above the result.
+    name: (content.profile || {}).name,
+    ...(((content.profile || {}).alternateNames || []).length ? { alternateName: content.profile.alternateNames } : {}),
     inLanguage: "en",
     about: { "@id": personId },
     publisher: { "@id": personId }
